@@ -1,0 +1,61 @@
+body {
+	background: #F1E4FE;
+}
+h2, h3, h4 {
+	text-transform: uppercase;
+	font-family: 'open_sansregular';
+
+	text-align: center;
+}
+
+div {
+	font: 16px 'open_sansmedium', arial;
+}
+
+form {
+	font: 16px 'open_sansbold', arial;
+}
+
+input {
+	width: 50px;
+	padding: 5px;
+
+	text-align: center;
+}
+
+.clearfix:after {
+	content: '';
+	display: block;
+	clear: both;
+}
+.container {
+	width: 80%;
+	margin: auto;
+}
+.container-left {
+	float: left;
+}
+.container-right {
+	float: right;
+
+	width: 50%;
+	min-height: 350px;
+}
+.result {
+	padding: 10px;
+	background: #81A34A;
+	color: #fff;
+
+	text-align: center;
+	border-radius: 10px;
+	border: 1px solid #fff;
+
+	margin-top: 10px;
+}
+.points {
+	border-collapse: collapse;
+}
+.points td {
+	padding: 5px;
+	border: 1px solid gray;
+}

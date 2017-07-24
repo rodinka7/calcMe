@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="calc">
+<head>
+	<meta charset="UTF-8">
+	<title>Calc me!</title>
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	<link rel="stylesheet" type="text/css" href="assets/fonts/open-sans/stylesheet.css">
+	<script type="text/javascript" src="assets/js/angular.min.js"></script>
+	<script type="text/javascript" src="assets/js/angularApp.js"></script>
+</head>
+<body>	
+	<header>
+		<h2>Решение квадратных уравнений</h2>
+	</header>
+	<div class="container">
+		<div class="container-quadr" ng-controller="quadrController">
+			<div class="container-left">
+		        <div class="container-header">
+		        	<h3>Введите коэффициенты:</h3>
+		        </div>
+		        <form>
+		        	<input type="text" ng-model="a" ng-change="reCalc()">
+		        	<span>x<sup>2</sup></span>
+		        	+
+		        	<input type="text" ng-model="b" ng-change="reCalc()">
+		        	<span>x</span>
+		        	+
+		        	<input type="text" ng-model="c" ng-change="reCalc()">
+		        	= 0
+		        </form>
+		        <div class="result">
+		        	<h4>Результат:</h4>
+					<div class="result-name">{{ answer }}</div>
+					<div class="result-d">
+						Дискриминант D = 
+						<span>{{ d }}</span>
+					</div>
+					<div class="result-answer" ng-show="reCalc()">
+						<div class="result-root">
+							x<sub>1</sub> = 
+							<span>{{ x1 }}</span>
+						</div>
+						<div class="result-root">
+							x<sub>2</sub> = 
+							<span>{{ x2 }}</span>
+						</div>
+					</div>
+		        </div>
+		        <div class="showPoints">
+		        	<label>	
+						<input type="checkbox">
+						Построение параболы по точкам
+		        	</label>
+		        	<label>	
+						<input type="checkbox">
+						Построить график
+		        	</label>
+		        </div>
+		        <div class="points-table">
+		        	<h4>Построение параболы по точкам</h4>
+		        	<table class="points">
+		        	<tbody>
+		        		<tr><td>X</td></tr>
+		        		<tr><td>Y</td></tr>
+		        	</tbody>	
+		        	</table>
+		        </div>
+			</div>
+			<div class="container-right">
+				<svg width="510" height="510">
+					<polyline points="1,1 500,1 500,500 1,500 1,1" stroke="#000" stroke-width="1" fill="#fff" shape-rendering="crispEdges"></polyline>
+					<g>
+						<line x1="30" y1="25" x2="30" y2="470" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
+						<text x="28" y="490" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">-90</text>
+						<line x1="57" y1="25" x2="57" y2="470" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
+						<text x="55" y="490" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">-80</text>
+						<line x1="84" y1="25" x2="84" y2="470" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
+						<text x="82" y="490" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">-70</text>
+						<line x1="109" y1="25" x2="109" y2="470" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
+						<text x="107" y="490" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">-60</text>
+						<line x1="134" y1="25" x2="134" y2="470" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
+						<text x="132" y="490" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">-50</text>
+						<line x1="161" y1="25" x2="161" y2="470" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
+						<text x="159" y="490" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">-40</text>
+						<line x1="188" y1="25" x2="188" y2="470" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
+						<text x="186" y="490" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">-30</text>
+						<line x1="215" y1="25" x2="215" y2="470" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
+						<text x="213" y="490" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">-20</text>
+						<line x1="242" y1="25" x2="242" y2="470" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
+						<text x="240" y="490" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">-10</text>
+						<line x1="267" y1="15" x2="267" y2="470" stroke="#000" stroke-width="2" shape-rendering="crispEdges"></line>
+						<text x="265" y="490" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">0</text>
+						<line x1="294" y1="25" x2="294" y2="470" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
+						<text x="294" y="490" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">10</text>
+						<line x1="321" y1="25" x2="321" y2="470" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
+						<text x="321" y="490" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">20</text>
+						<line x1="348" y1="25" x2="348" y2="470" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
+						<text x="348" y="490" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">30</text>
+						<line x1="375" y1="25" x2="375" y2="470" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
+						<text x="375" y="490" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">40</text>
+						<line x1="402" y1="25" x2="402" y2="470" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
+						<text x="402" y="490" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">50</text>
+						<line x1="429" y1="25" x2="429" y2="470" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
+						<text x="429" y="490" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">60</text>
+						<line x1="456" y1="25" x2="456" y2="470" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
+						<text x="456" y="490" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">70</text>
+						<line x1="483" y1="25" x2="483" y2="470" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
+						<text x="483" y="490" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">80</text>
+					</g>
+					<g>
+						<line x1="25" y1="30" x2="490" y2="30" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
+						<text x="10" y="32" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">120</text>
+						<line x1="25" y1="57" x2="490" y2="57" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
+						<text x="10" y="59" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">100</text>
+						<line x1="25" y1="84" x2="490" y2="84" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
+						<text x="10" y="86" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">90</text>
+						<line x1="25" y1="111" x2="490" y2="111" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
+						<text x="10" y="113" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">80</text>
+						<line x1="25" y1="138" x2="490" y2="138" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
+						<text x="10" y="139" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">70</text>
+						<line x1="25" y1="165" x2="490" y2="165" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
+						<text x="10" y="167" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">60</text>
+						<line x1="25" y1="192" x2="490" y2="192" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
+						<text x="10" y="194" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">50</text>
+						<line x1="25" y1="219" x2="490" y2="219" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
+						<text x="10" y="221" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">40</text>
+						<line x1="25" y1="246" x2="490" y2="246" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
+						<text x="10" y="248" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">30</text>
+						<line x1="25" y1="273" x2="490" y2="273" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
+						<text x="10" y="275" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">20</text>
+						<line x1="25" y1="300" x2="490" y2="300" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
+						<text x="10" y="302" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">10</text>
+						<line x1="25" y1="327" x2="495" y2="327" stroke="#000" stroke-width="2" shape-rendering="crispEdges"></line>
+						<text x="10" y="329" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">0</text>
+						<line x1="25" y1="354" x2="490" y2="354" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
+						<text x="10" y="356" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">-10</text>
+						<line x1="25" y1="381" x2="490" y2="381" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
+						<text x="10" y="383" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">-20</text>
+						<line x1="25" y1="408" x2="490" y2="408" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
+						<text x="10" y="410" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">-30</text>
+						<line x1="25" y1="435" x2="490" y2="435" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
+						<text x="10" y="437" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">-40</text>
+						<line x1="25" y1="462" x2="490" y2="462" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
+						<text x="10" y="464" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">-50</text>
+					</g>
+					<g>
+						<polyline points="267,15 263,25 267,23 271,25 268,15" fill="#000" shape-rendering="geometricPrecision"></polyline>
+						<text x="275" y="25" font-size="12" fill="#000">Y</text>
+						<polyline points="495,327 485,323 487,327 485,331 495,327"></polyline>
+						<text x="487" y="343" font-size="12" fill="#000">X</text>
+					</g>
+					<g>
+						<polyline points="" stroke="rgb(26, 61, 193)" stroke-width="1.5"></polyline>
+					</g>
+				</svg>
+			</div>
+		</div>
+		
+
+   
+	</div>
+</body>
+</html>
