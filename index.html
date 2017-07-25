@@ -47,17 +47,13 @@
 					</div>
 		        </div>
 		        <div class="showPoints">
-		        	<label>	
-						<input type="checkbox">
-						Построение параболы по точкам
-		        	</label>
-		        	<label>	
-						<input type="checkbox">
-						Построить график
-		        	</label>
+		        	<input type="checkbox" class="input-checkbox" id="checkbox-1" ng-model="showTable">
+		        	<label for="checkbox-1" class="input-label">Построение параболы по точкам</label>
+		        	<input type="checkbox" class="input-checkbox" id="checkbox-2" ng-click="graph()">
+		        	<label for="checkbox-2" class="input-label">Построить график</label>
 		        </div>
-		        <div class="points-table">
-		        	<h4>Построение параболы по точкам</h4>
+		        <div class="points-table" ng-show="showTable">
+		        	<h5>Построение параболы по точкам</h5>
 		        	<table class="points">
 		        	<tbody>
 		        		<tr><td>X</td></tr>
@@ -66,7 +62,7 @@
 		        	</table>
 		        </div>
 			</div>
-			<div class="container-right">
+			<div class="container-right">				
 				<svg width="510" height="510">
 					<polyline points="1,1 500,1 500,500 1,500 1,1" stroke="#000" stroke-width="1" fill="#fff" shape-rendering="crispEdges"></polyline>
 					<g>
@@ -149,10 +145,7 @@
 						<polyline points="495,327 485,323 487,327 485,331 495,327"></polyline>
 						<text x="487" y="343" font-size="12" fill="#000">X</text>
 					</g>
-					<g>
-						<polyline points="" stroke="rgb(26, 61, 193)" stroke-width="1.5"></polyline>
-					</g>
-				</svg>
+				</svg>			
 			</div>
 		</div>
 		

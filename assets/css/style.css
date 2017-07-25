@@ -1,7 +1,7 @@
 body {
 	background: #F1E4FE;
 }
-h2, h3, h4 {
+h2, h3, h4, h5 {
 	text-transform: uppercase;
 	font-family: 'open_sansregular';
 
@@ -50,8 +50,43 @@ input {
 	border-radius: 10px;
 	border: 1px solid #fff;
 
-	margin-top: 10px;
+	margin: 10px 0 20px;
 }
+.input-checkbox {
+	display: none;
+}
+.input-label {
+	display: block;
+	
+	position: relative;
+
+	padding-left: 30px;
+	margin-bottom: 10px;
+
+	vertical-align: middle;
+}
+.input-label:before {
+	content: '';
+
+	height: 20px;
+	width: 20px;
+
+	position: absolute;
+	top: -5px;
+	left: 0;
+
+	border: 2px solid #B1A5DE;
+	border-radius: 5px;
+}
+.input-checkbox:checked+.input-label:before{
+	content: '\2718';
+	color: #fff;
+	
+	background: #B1A5DE;
+	
+	text-align: center;
+}
+/* Таблица с координатами точек */
 .points {
 	border-collapse: collapse;
 }
@@ -59,3 +94,4 @@ input {
 	padding: 5px;
 	border: 1px solid gray;
 }
+/* Таблица с координатами точек */
