@@ -59,11 +59,11 @@
 			x0 = Math.round(-b/(2*a));
 			y0 = Math.round(a*x0*x0 + b*x0 + c);
 
-			line = document.createElement('polyline');
+			line = document.createElementNS('http://www.w3.org/2000/svg', 'g');
 
 			line.innerHTML = `<polyline points="${265+x1},327 ${265+x0},${327+y0} ${265+x2},327" stroke="#594C91" stroke-width="2"></polyline>`;
-
 			container.appendChild(line);
+			console.log(line);
 		}
 	})
 })();
