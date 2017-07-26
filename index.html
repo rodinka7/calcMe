@@ -7,6 +7,7 @@
 	<link rel="stylesheet" type="text/css" href="assets/fonts/open-sans/stylesheet.css">
 	<script type="text/javascript" src="assets/js/angular.min.js"></script>
 	<script type="text/javascript" src="assets/js/angularApp.js"></script>
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
 <body>	
 	<header>
@@ -47,23 +48,23 @@
 					</div>
 		        </div>
 		        <div class="showPoints">
-		        	<input type="checkbox" class="input-checkbox" id="checkbox-1" ng-model="showTable">
+		        	<input type="checkbox" class="input-checkbox" id="checkbox-1" ng-model="showTable" ng-click="countPoints()">
 		        	<label for="checkbox-1" class="input-label">Построение параболы по точкам</label>
-		        	<input type="checkbox" class="input-checkbox" id="checkbox-2" ng-click="graph()">
+		        	<input type="checkbox" class="input-checkbox" id="checkbox-2" ng-model="showGraph" ng-click="graph()">
 		        	<label for="checkbox-2" class="input-label">Построить график</label>
 		        </div>
 		        <div class="points-table" ng-show="showTable">
 		        	<h5>Построение параболы по точкам</h5>
 		        	<table class="points">
-		        	<tbody>
-		        		<tr><td>X</td></tr>
-		        		<tr><td>Y</td></tr>
-		        	</tbody>	
+			        	<tbody>
+			        		<tr ng-repeat="elem in arr"><td>{{ elem[0] }}</td><td>{{ elem[1] }}</td></tr>
+			        	</tbody>	
 		        	</table>
 		        </div>
 			</div>
-			<div class="container-right">				
-				<svg width="510" height="510">
+			<div class="container-right">	
+				<div id="curve_chart" style="width: 500px; height: 500px" ng-show="showGraph"></div>			
+				<!--<svg width="510" height="510">
 					<polyline points="1,1 500,1 500,500 1,500 1,1" stroke="#000" stroke-width="1" fill="#fff" shape-rendering="crispEdges"></polyline>
 					<g>
 						<line x1="30" y1="25" x2="30" y2="470" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
@@ -145,7 +146,7 @@
 						<polyline points="495,327 485,323 487,327 485,331 495,327"></polyline>
 						<text x="487" y="343" font-size="12" fill="#000">X</text>
 					</g>
-				</svg>			
+				</svg>-->	
 			</div>
 		</div>
 		

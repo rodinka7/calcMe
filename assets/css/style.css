@@ -88,10 +88,15 @@ input {
 }
 /* Таблица с координатами точек */
 .points {
+	margin: auto;
 	border-collapse: collapse;
 }
 .points td {
-	padding: 5px;
+	padding: 10px;
 	border: 1px solid gray;
+}
+.points tr:nth-child(2n) {
+	background: #B1A5DE;
+	color: #fff;
 }
 /* Таблица с координатами точек */
