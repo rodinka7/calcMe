@@ -55,9 +55,10 @@ input {
 	color: #fff;
 	
 	padding: 15px;
-	margin-right: 15px;
-
 	transform: perspective(700px) translate3d(0,0,10px);
+}
+.container-equation.right {
+	float: right;
 }
 .js-error {
 	margin-top: 10px;
@@ -113,8 +114,41 @@ input {
 	
 	text-align: center;
 }
+.points-wrapper {
+	padding-top: 20px;
+}
 .show-points {
-	margin-top: 20px;
+	width: 55%;
+	float: left;
+}
+.change-color {
+	color: #594C91;
+	text-decoration: none;
+}
+.choose-color {
+	width: 40%;
+	float: right;
+
+	background: rgba(182,191,133, .7);
+	border-radius: 10px;
+
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+
+	padding: 15px;
+
+	visibility: hidden;
+}
+.color-span {
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+
+	cursor: pointer;
+}
+.active {
+	visibility: visible;
 }
 /* Таблица с координатами точек */
 .points {

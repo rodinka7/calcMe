@@ -32,7 +32,7 @@
 				        	= 0
 				        </form>					
 					</div>
-					<div class="container-equation">
+					<div class="container-equation right">
 				        <div class="form-quadr">
 				        	<h4>Выберите интервал по оси Х</h4>
 				        	<span>Интервал [ </span>
@@ -61,11 +61,16 @@
 						</div>
 					</div>
 		        </div>
-		        <div class="show-points">
-		        	<input type="checkbox" class="input-checkbox" id="checkbox-1" ng-model="showTable" ng-click="showPoints()">
-		        	<label for="checkbox-1" class="input-label">Построение параболы по точкам</label>
-		        	<input type="checkbox" class="input-checkbox" id="checkbox-2" ng-model="showGraph" ng-click="graph()">
-		        	<label for="checkbox-2" class="input-label">Построить график <a href="" class="change-color">Выбрать цвет</a></label>
+		        <div class="points-wrapper clearfix">
+			        <div class="show-points">
+			        	<input type="checkbox" class="input-checkbox" id="checkbox-1" ng-model="showTable" ng-click="showPoints()">
+			        	<label for="checkbox-1" class="input-label">Построение параболы по точкам</label>
+			        	<input type="checkbox" class="input-checkbox" id="checkbox-2" ng-model="showGraph" ng-click="graph()">
+			        	<label for="checkbox-2" class="input-label">Построить график <a href="" class="change-color" ng-click="btnColorClick($event)">Выбрать цвет</a></label>
+			        </div>
+			        <div class="choose-color">
+			        	<span class="color-span" ng-repeat="color in colors" style="background: {{ color }};" data-color="{{ color }}" ng-click="chooseColor($event)"></span>
+			        </div>		        	
 		        </div>
 		        <div class="points-table" ng-show="showTable">
 		        	<h5>Построение параболы по точкам</h5>
@@ -162,10 +167,7 @@
 					</g>
 				</svg>-->	
 			</div>
-		</div>
-		
-
-   
+		</div>   
 	</div>
 </body>
 </html>

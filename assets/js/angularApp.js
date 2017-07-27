@@ -2,9 +2,12 @@
 	var app = angular.module('calc', []);
 
 	app.controller('quadrController', function($scope){
+		
 		$scope.pos_begin = -10;
 		$scope.pos_end = 10;
 
+		$scope.colors = ['#1A3DC1', '#BF6DE8', '#434348', '#008800', '#BB0000', '#DC5656', '#FF7711', '#FCD202'];
+		
 		$scope.reCalc = function(){
 			var a = $scope.a || 1,
 				b = $scope.b || 1,
@@ -125,6 +128,23 @@
 					return true;
 				}
 			}
+		}
+
+		$scope.btnColorClick = function($event){
+			
+				$event.preventDefault();
+				pallet.classList.toggle('active');
+		}
+				
+		$scope.chooseColor = function($event){
+			pallet.addEventListener('click',function(e){
+				var target = e.target,
+					color;
+
+				if (target.classList.contains('color-span')){
+					$scope.color = target.dataset.color;
+				}
+			});
 		}
 	})
 })();
