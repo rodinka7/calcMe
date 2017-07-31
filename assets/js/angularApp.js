@@ -7,7 +7,8 @@
 		$scope.pos_end = 10;
 
 		$scope.colors = ['#1A3DC1', '#BF6DE8', '#434348', '#008800', '#BB0000', '#DC5656', '#FF7711', '#FCD202'];
-		
+		$scope.color = 'red';
+
 		$scope.reCalc = function(){
 			var a = $scope.a || 1,
 				b = $scope.b || 1,
@@ -57,7 +58,7 @@
 		          title: 'График параболы',
 		          curveType: 'function',
 		          legend: { position: 'bottom' },
-		          colors: ['red']
+		          colors: [$scope.color]
 		        };
 
 		        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
@@ -129,22 +130,17 @@
 				}
 			}
 		}
-
-		$scope.btnColorClick = function($event){
-			
-				$event.preventDefault();
-				pallet.classList.toggle('active');
-		}
 				
 		$scope.chooseColor = function($event){
-			pallet.addEventListener('click',function(e){
-				var target = e.target,
-					color;
+			var target = $event.target,
+				color = target.dataset.color;
 
-				if (target.classList.contains('color-span')){
-					$scope.color = target.dataset.color;
-				}
-			});
+			$scope.color = color;
+			$scope.colorShow = false;
+		}
+
+		$scope.addGraph = function(){
+			
 		}
 	})
 })();

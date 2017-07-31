@@ -121,7 +121,8 @@ input {
 	width: 55%;
 	float: left;
 }
-.change-color {
+.change-color, 
+.add-graph {
 	color: #594C91;
 	text-decoration: none;
 }
@@ -137,8 +138,6 @@ input {
 	justify-content: space-between;
 
 	padding: 15px;
-
-	visibility: hidden;
 }
 .color-span {
 	display: inline-block;
@@ -146,9 +145,6 @@ input {
 	height: 20px;
 
 	cursor: pointer;
-}
-.active {
-	visibility: visible;
 }
 /* Таблица с координатами точек */
 .points {
