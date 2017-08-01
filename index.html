@@ -10,167 +10,87 @@
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
 <body>	
-	<header>
-		<h2>Решение квадратных уравнений</h2>
-	</header>
-	<div class="container">
-		<div class="container-quadr" ng-controller="quadrController">
-			<div class="container-left">
-				<div class="clearfix">
-					<div class="container-equation">
-				        <div class="container-header">
-				        	<h4>Введите коэффициенты:</h4>
-				        </div>
-				        <form class="form-quadr">
-				        	<input type="text" ng-keyup="reCalc()" ng-model="a">
-				        	<span>x<sup>2</sup></span>
-				        	+
-				        	<input type="text" ng-keyup="reCalc()" ng-model="b">
-				        	<span>x</span>
-				        	+
-				        	<input type="text" ng-keyup="reCalc()" ng-model="c">
-				        	= 0
-				        </form>					
-					</div>
-					<div class="container-equation right">
-				        <div class="form-quadr">
-				        	<h4>Выберите интервал по оси Х</h4>
-				        	<span>Интервал [ </span>
-				        	<input type="text" ng-model="pos_begin">
-				        	<span>, </span>
-				        	<input type="text" ng-model="pos_end">
-				        	<span> ]</span> 
-				        </div>					
-					</div>					
-				</div>
-		        <div class="result" ng-show="a || b || c">
-		        	<h4>Результат:</h4>
-					<div class="result-name">{{ answer }}</div>
-					<div class="result-d">
-						Дискриминант D = 
-						<span>{{ d }}</span>
-					</div>
-					<div class="result-answer" ng-show="reCalc()">
-						<div class="result-root">
-							x<sub>1</sub> = 
-							<span>{{ x1 }}</span>
+	<div class="wrapper clearfix">
+		<header>
+			<h2>Решение квадратных уравнений</h2>
+		</header>
+		<div class="container clearfix">
+			<div class="container-quadr" ng-controller="quadrController">
+				<div class="container-left">
+					<div class="clearfix">
+						<div class="container-equation">
+					        <div class="container-header">
+					        	<h4>Введите коэффициенты:</h4>
+					        </div>
+					        <form class="form-quadr">
+					        	<input type="text" ng-keyup="reCalc()" ng-model="a">
+					        	<span>x<sup>2</sup></span>
+					        	+
+					        	<input type="text" ng-keyup="reCalc()" ng-model="b">
+					        	<span>x</span>
+					        	+
+					        	<input type="text" ng-keyup="reCalc()" ng-model="c">
+					        	= 0
+					        </form>					
 						</div>
-						<div class="result-root">
-							x<sub>2</sub> = 
-							<span>{{ x2 }}</span>
-						</div>
+						<div class="container-equation right">
+					        <div class="form-quadr">
+					        	<h4>Выберите интервал по оси Х</h4>
+					        	<span>Интервал [ </span>
+					        	<input type="text" ng-model="pos_begin" class="pos_begin">
+					        	<span>, </span>
+					        	<input type="text" ng-model="pos_end" class="pos_end">
+					        	<span> ]</span> 
+					        </div>					
+						</div>					
 					</div>
-		        </div>
-		        <div class="points-wrapper clearfix">
-			        <div class="show-points">		
-			        	<a href="" class="href-points" ng-click="graph()">Построить график <span class="change-color" ng-click="colorShow=true">Выбрать цвет</span></a>
-			        	<a href="" class="href-points" ng-click="showTable=true">Построить параболу по точкам</a>
-			        	<!--<input type="checkbox" class="input-checkbox" id="checkbox-1" ng-model="showTable">
-			        	<label for="checkbox-1" class="input-label">Построение параболы по точкам</label>
-			        	<input type="checkbox" class="input-checkbox" id="checkbox-2" ng-model="showGraph" ng-click="graph()">
-			        	<label for="checkbox-2" class="input-label">Построить график <a href="#" class="change-color" ng-click="colorShow=true">Выбрать цвет</a></label>-->
-			        	<a href="#" class="add-graph" ng-click="addGraph()">Добавить график</a>
+			        <div class="result" ng-show="a || b || c">
+			        	<h4>Результат:</h4>
+						<div class="result-name">{{ answer }}</div>
+						<div class="result-d">
+							Дискриминант D = 
+							<span>{{ d }}</span>
+						</div>
+						<div class="result-answer" ng-show="reCalc()">
+							<div class="result-root">
+								x<sub>1</sub> = 
+								<span>{{ x1 }}</span>
+							</div>
+							<div class="result-root">
+								x<sub>2</sub> = 
+								<span>{{ x2 }}</span>
+							</div>
+						</div>
 			        </div>
-			        <div class="choose-color" ng-show="colorShow">
-			        	<span class="color-span" ng-repeat="color in colors" style="background: {{ color }};" data-color="{{ color }}" ng-click="chooseColor($event)"></span>
-			        </div>		        	
-		        </div>
-		        <div class="points-table" ng-show="showTable">
-		        	<h5>Построение параболы по точкам</h5>
-		        	<table class="points">
-			        	<tbody>
-			        		<tr ng-repeat="elem in arr"><td>{{ elem[0] }}</td><td>{{ elem[1] }}</td></tr>
-			        	</tbody>	
-		        	</table>
-		        </div>
-			</div>
-			<div class="container-right">	
-				<div id="curve_chart" style="width: 550px; height: 550px" ng-show="showGraph"></div>			
-				<!--<svg width="510" height="510">
-					<polyline points="1,1 500,1 500,500 1,500 1,1" stroke="#000" stroke-width="1" fill="#fff" shape-rendering="crispEdges"></polyline>
-					<g>
-						<line x1="30" y1="25" x2="30" y2="470" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
-						<text x="28" y="490" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">-90</text>
-						<line x1="57" y1="25" x2="57" y2="470" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
-						<text x="55" y="490" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">-80</text>
-						<line x1="84" y1="25" x2="84" y2="470" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
-						<text x="82" y="490" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">-70</text>
-						<line x1="109" y1="25" x2="109" y2="470" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
-						<text x="107" y="490" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">-60</text>
-						<line x1="134" y1="25" x2="134" y2="470" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
-						<text x="132" y="490" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">-50</text>
-						<line x1="161" y1="25" x2="161" y2="470" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
-						<text x="159" y="490" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">-40</text>
-						<line x1="188" y1="25" x2="188" y2="470" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
-						<text x="186" y="490" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">-30</text>
-						<line x1="215" y1="25" x2="215" y2="470" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
-						<text x="213" y="490" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">-20</text>
-						<line x1="242" y1="25" x2="242" y2="470" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
-						<text x="240" y="490" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">-10</text>
-						<line x1="267" y1="15" x2="267" y2="470" stroke="#000" stroke-width="2" shape-rendering="crispEdges"></line>
-						<text x="265" y="490" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">0</text>
-						<line x1="294" y1="25" x2="294" y2="470" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
-						<text x="294" y="490" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">10</text>
-						<line x1="321" y1="25" x2="321" y2="470" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
-						<text x="321" y="490" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">20</text>
-						<line x1="348" y1="25" x2="348" y2="470" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
-						<text x="348" y="490" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">30</text>
-						<line x1="375" y1="25" x2="375" y2="470" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
-						<text x="375" y="490" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">40</text>
-						<line x1="402" y1="25" x2="402" y2="470" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
-						<text x="402" y="490" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">50</text>
-						<line x1="429" y1="25" x2="429" y2="470" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
-						<text x="429" y="490" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">60</text>
-						<line x1="456" y1="25" x2="456" y2="470" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
-						<text x="456" y="490" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">70</text>
-						<line x1="483" y1="25" x2="483" y2="470" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
-						<text x="483" y="490" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">80</text>
-					</g>
-					<g>
-						<line x1="25" y1="30" x2="490" y2="30" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
-						<text x="10" y="32" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">120</text>
-						<line x1="25" y1="57" x2="490" y2="57" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
-						<text x="10" y="59" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">100</text>
-						<line x1="25" y1="84" x2="490" y2="84" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
-						<text x="10" y="86" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">90</text>
-						<line x1="25" y1="111" x2="490" y2="111" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
-						<text x="10" y="113" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">80</text>
-						<line x1="25" y1="138" x2="490" y2="138" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
-						<text x="10" y="139" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">70</text>
-						<line x1="25" y1="165" x2="490" y2="165" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
-						<text x="10" y="167" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">60</text>
-						<line x1="25" y1="192" x2="490" y2="192" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
-						<text x="10" y="194" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">50</text>
-						<line x1="25" y1="219" x2="490" y2="219" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
-						<text x="10" y="221" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">40</text>
-						<line x1="25" y1="246" x2="490" y2="246" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
-						<text x="10" y="248" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">30</text>
-						<line x1="25" y1="273" x2="490" y2="273" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
-						<text x="10" y="275" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">20</text>
-						<line x1="25" y1="300" x2="490" y2="300" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
-						<text x="10" y="302" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">10</text>
-						<line x1="25" y1="327" x2="495" y2="327" stroke="#000" stroke-width="2" shape-rendering="crispEdges"></line>
-						<text x="10" y="329" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">0</text>
-						<line x1="25" y1="354" x2="490" y2="354" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
-						<text x="10" y="356" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">-10</text>
-						<line x1="25" y1="381" x2="490" y2="381" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
-						<text x="10" y="383" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">-20</text>
-						<line x1="25" y1="408" x2="490" y2="408" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
-						<text x="10" y="410" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">-30</text>
-						<line x1="25" y1="435" x2="490" y2="435" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
-						<text x="10" y="437" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">-40</text>
-						<line x1="25" y1="462" x2="490" y2="462" stroke="#ccc" stroke-width="1" shape-rendering="crispEdges"></line>
-						<text x="10" y="464" stroke="#000" font-size="10" text-rendering="optimizeSpeed" shape-rendering="crispEdges">-50</text>
-					</g>
-					<g>
-						<polyline points="267,15 263,25 267,23 271,25 268,15" fill="#000" shape-rendering="geometricPrecision"></polyline>
-						<text x="275" y="25" font-size="12" fill="#000">Y</text>
-						<polyline points="495,327 485,323 487,327 485,331 495,327"></polyline>
-						<text x="487" y="343" font-size="12" fill="#000">X</text>
-					</g>
-				</svg>-->	
-			</div>
-		</div>   
+			        <div class="points-wrapper clearfix">
+				        <div class="show-points">		
+				        	<a href="" class="href-points" ng-click="graph()">Построить график</a> 
+				        	<span class="change-color" ng-click="colorShow=true">Выбрать цвет</span>	
+				        	<a href="" class="href-graph" ng-click="drawTable()">Построить параболу по точкам</a>		        	
+				        	<a href="#" class="add-graph" ng-click="addGraph()">Добавить график</a>
+				        	<a href="#" class="add-graph" ng-click="deleteGraph()">Очистить график и форму</a>
+				        </div>
+				        <div class="choose-color" ng-show="colorShow">
+				        	<span class="color-span" ng-repeat="color in colors" style="background: {{ color }};" data-color="{{ color }}" ng-click="chooseColor($event)"></span>
+				        </div>		        	
+			        </div>
+			        <div class="points-table" ng-show="showTable">
+			        	<h5>Построение параболы по точкам</h5>
+			        	<table class="points">
+				        	<tbody>
+				        		<tr ng-repeat="elem in arr track by $index">
+				        			<td ng-repeat="item in elem track by $index">{{ item }}</td>
+				        		</tr>
+				        	</tbody>	
+			        	</table>
+			        </div>
+				</div>
+				<div class="container-right">	
+					<div id="curve_chart" class="js-graph" style="width: 550px; height: 550px" ng-show="showGraph"></div>			
+				</div>
+			</div>   
+		</div>
+		<footer class="footer">Тестовое задание 2017</footer>		
 	</div>
 </body>
 </html>

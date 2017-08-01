@@ -1,6 +1,9 @@
 body {
 	background: #F1E4FE;
+	margin: 0;
+	padding: 0;
 }
+
 h2, h3, h4, h5 {
 	text-transform: uppercase;
 	font-family: 'open_sansregular';
@@ -9,11 +12,11 @@ h2, h3, h4, h5 {
 }
 
 div {
-	font: 16px 'open_sansmedium', arial;
+	font: 16px 'open_sansregular', arial;
 }
 
 form {
-	font: 16px 'open_sansbold', arial;
+	font: 16px 'open_sansmedium', arial;
 }
 
 input {
@@ -21,13 +24,22 @@ input {
 	padding: 5px;
 
 	text-align: center;
-	font: 14px 'open_sansregular', arial;
+	font: 14px 'open_sanslight', arial;
 }
 
 .clearfix:after {
 	content: '';
 	display: block;
 	clear: both;
+}
+.wrapper {
+	box-sizing: border-box;
+
+	width: 100%;
+	min-height: calc(100vh - 20px);
+
+	position: relative;
+	padding-bottom: 50px;
 }
 .container {
 	width: 95%;
@@ -54,7 +66,7 @@ input {
 	border-radius: 10px;
 	color: #fff;
 	
-	padding: 15px;
+	padding: 20px;
 	transform: perspective(700px) translate3d(0,0,10px);
 }
 .container-equation.right {
@@ -81,53 +93,31 @@ input {
 	margin: 10px auto 20px;
 }
 .href-points,
+.href-graph,
 .add-graph {
-	display: block;
-
 	text-decoration: none;
 	color: #81A34A;
 	padding: 5px;
+
+	transition: .3s ease-in-out;
 }
+.href-graph,
+.add-graph {
+	display: block;
+}
+.href-graph:hover,
+.href-points:hover,
+.add-graph:hover {
+	color: #608c15;
+} 
+.href-graph:before,
 .href-points:before,
 .add-graph:before {
 	content: '\2718';
 	color: #594C91;
 	margin-right: 5px;
 }
-.input-checkbox {
-	display: none;
-}
-.input-label {
-	display: block;
-	
-	position: relative;
 
-	padding-left: 30px;
-	margin-bottom: 10px;
-
-	vertical-align: middle;
-}
-.input-label:before {
-	content: '';
-
-	height: 20px;
-	width: 20px;
-
-	position: absolute;
-	top: -5px;
-	left: 0;
-
-	border: 2px solid #B6BF85;
-	border-radius: 5px;
-}
-.input-checkbox:checked+.input-label:before{
-	content: '\2718';
-	color: #fff;
-	
-	background: #B6BF85;
-	
-	text-align: center;
-}
 .points-wrapper {
 	padding-top: 20px;
 }
@@ -141,6 +131,12 @@ input {
 }
 .change-color {
 	color: #594C91;
+	transition: .3s ease-in-out;
+
+	cursor: pointer;
+}
+.change-color:hover {
+	color: #6548d6;
 }
 .choose-color {
 	width: 40%;
@@ -164,7 +160,7 @@ input {
 }
 /* Таблица с координатами точек */
 .points {
-	margin: auto;
+	margin: 0 auto 20px;
 	border-collapse: collapse;
 }
 .points td {
@@ -176,3 +172,24 @@ input {
 	color: #fff;
 }
 /* Таблица с координатами точек */
+.js-graph {
+	margin-bottom: 20px;
+}
+.footer {
+	height: 50px;
+	width: 100%;
+	background: #81A34A;
+	color: #fff;
+	
+	box-sizing: border-box;
+	border: 1px solid #81A34A;
+
+	position: absolute;
+	bottom: 0;
+	left:0;
+
+	padding: 10px;
+	text-align: right;
+
+	line-height: 30px;
+}
