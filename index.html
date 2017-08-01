@@ -22,13 +22,13 @@
 				        	<h4>Введите коэффициенты:</h4>
 				        </div>
 				        <form class="form-quadr">
-				        	<input type="text" ng-change="reCalc()" ng-model="a">
+				        	<input type="text" ng-keyup="reCalc()" ng-model="a">
 				        	<span>x<sup>2</sup></span>
 				        	+
-				        	<input type="text" ng-change="reCalc()" ng-model="b">
+				        	<input type="text" ng-keyup="reCalc()" ng-model="b">
 				        	<span>x</span>
 				        	+
-				        	<input type="text" ng-change="reCalc()" ng-model="c">
+				        	<input type="text" ng-keyup="reCalc()" ng-model="c">
 				        	= 0
 				        </form>					
 					</div>
@@ -62,11 +62,13 @@
 					</div>
 		        </div>
 		        <div class="points-wrapper clearfix">
-			        <div class="show-points">
-			        	<input type="checkbox" class="input-checkbox" id="checkbox-1" ng-model="showTable" ng-click="showPoints()">
+			        <div class="show-points">		
+			        	<a href="" class="href-points" ng-click="graph()">Построить график <span class="change-color" ng-click="colorShow=true">Выбрать цвет</span></a>
+			        	<a href="" class="href-points" ng-click="showTable=true">Построить параболу по точкам</a>
+			        	<!--<input type="checkbox" class="input-checkbox" id="checkbox-1" ng-model="showTable">
 			        	<label for="checkbox-1" class="input-label">Построение параболы по точкам</label>
 			        	<input type="checkbox" class="input-checkbox" id="checkbox-2" ng-model="showGraph" ng-click="graph()">
-			        	<label for="checkbox-2" class="input-label">Построить график <a href="#" class="change-color" ng-click="colorShow=true">Выбрать цвет</a></label>
+			        	<label for="checkbox-2" class="input-label">Построить график <a href="#" class="change-color" ng-click="colorShow=true">Выбрать цвет</a></label>-->
 			        	<a href="#" class="add-graph" ng-click="addGraph()">Добавить график</a>
 			        </div>
 			        <div class="choose-color" ng-show="colorShow">

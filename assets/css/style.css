@@ -80,6 +80,20 @@ input {
 
 	margin: 10px auto 20px;
 }
+.href-points,
+.add-graph {
+	display: block;
+
+	text-decoration: none;
+	color: #81A34A;
+	padding: 5px;
+}
+.href-points:before,
+.add-graph:before {
+	content: '\2718';
+	color: #594C91;
+	margin-right: 5px;
+}
 .input-checkbox {
 	display: none;
 }
@@ -118,13 +132,15 @@ input {
 	padding-top: 20px;
 }
 .show-points {
-	width: 55%;
+	width: 45%;
 	float: left;
+
+	border: 1px solid #B1A5DE;
+	border-radius: 10px;
+	padding: 10px;
 }
-.change-color, 
-.add-graph {
+.change-color {
 	color: #594C91;
-	text-decoration: none;
 }
 .choose-color {
 	width: 40%;
