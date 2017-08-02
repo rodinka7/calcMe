@@ -146,7 +146,7 @@
 		}
 
 		function validate() {
-			var reg = /[-]*\d+[.]*\d*/,
+			var reg = /^\-?\d+$/,
 				div = document.createElement('div'),
 				container = document.querySelector('.container-left'),
 				contBefore = document.querySelector('.result');
@@ -157,36 +157,18 @@
 				|| $scope.c == undefined || $scope.pos_begin == undefined 
 				|| $scope.pos_end == undefined) {
 
-				div.innerHTML = 'Все поля должны быть заполнены!';
-				container.insertBefore(div, contBefore);
-				
-				setTimeout(function(){
-					div.remove();
-				}, 2000);
-
+				isValid('Все поля должны быть заполнены!', container, div, contBefore);
 				return false;
 			} else { 
 				if (!reg.test($scope.a) || !reg.test($scope.b) 
 					|| !reg.test($scope.c) || !reg.test($scope.pos_begin)
 					|| !reg.test($scope.pos_end)){
 
-					div.innerHTML = 'Поля должны содержать только цифры, точку и знак "минус"!';
-					container.insertBefore(div, contBefore);
-					
-					setTimeout(function(){
-						div.remove();
-					}, 3000);
-					
+					isValid('Поля должны содержать только целые числа и знак "минус"!', container, div, contBefore);
 					return false;
 				} else {
 					if (!$scope.color.length) {
-						div.innerHTML = 'Пожалуйста, выберите цвет!';
-						container.insertBefore(div, contBefore);
-						
-						setTimeout(function(){
-							div.remove();
-						}, 3000);
-						
+						isValid('Пожалуйста, выберите цвет!', container, div, contBefore);
 						return false;
 					} else {
 						return true;
@@ -195,6 +177,28 @@
 			}
 		}
 		
+		function isValid(str, container, div, contBefore) {
+			var arr = [].slice.call(container.children),
+				res = arr.filter(function(item) {
+					if (item.classList.contains('js-error')) {
+						return true;
+					}
+				});
+
+			if (res.length) {
+				return false;
+			} else {
+				div.innerHTML = str;
+				container.insertBefore(div, contBefore);
+					
+				setTimeout(function(){
+					div.remove();
+				}, 2000);
+
+				return false;
+			}			
+		}
+
 		$scope.chooseColor = function($event){
 			if (!numberGraph) {
 				$scope.color = [];				
@@ -235,6 +239,10 @@
 			$scope.showTable = false;
 			$scope.arr = [];
 			$scope.color = [];
+		}
+
+		$scope.showLog = function() {
+			console.log(User-Agent);
 		}		
 	})
 })();

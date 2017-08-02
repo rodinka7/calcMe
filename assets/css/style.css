@@ -55,6 +55,14 @@ input {
 	width: 45%;
 	min-height: 350px;
 }
+@media screen and (max-width: 1210px) {
+	.container-left {
+		width: 30%;
+	}
+	.container-right {
+		width: 65%;
+	}
+}
 .form-quadr {
 	text-align: center;	
 }
@@ -71,6 +79,15 @@ input {
 }
 .container-equation.right {
 	float: right;
+}
+@media screen and (max-width: 1210px) {
+	.container-equation,
+	.container-equation.right {
+		float: none;
+		display: inline-block;
+
+		margin: 10px auto;		
+	}
 }
 .js-error {
 	margin-top: 10px;
@@ -91,6 +108,12 @@ input {
 	border: 1px solid #fff;
 
 	margin: 10px auto 20px;
+}
+@media screen and (max-width: 1210px) {
+	.result {
+		width: 100%;
+		margin: 10px 0 20px;  		
+	}
 }
 .href-points,
 .href-graph,
@@ -158,6 +181,17 @@ input {
 
 	cursor: pointer;
 }
+@media screen and (max-width: 1210px) {
+	.show-points {
+		width: 100%;
+	}
+	.choose-color {
+		width: 60%;
+		float: none;
+
+		margin: 0 auto 10px;
+	}
+}
 /* Таблица с координатами точек */
 .points {
 	margin: 0 auto 20px;
@@ -176,7 +210,7 @@ input {
 	margin-bottom: 20px;
 }
 .footer {
-	height: 50px;
+	height: 40px;
 	width: 100%;
 	background: #81A34A;
 	color: #fff;
@@ -191,5 +225,6 @@ input {
 	padding: 10px;
 	text-align: right;
 
-	line-height: 30px;
+	line-height: 40px;
+	font: 12px 'open_sanslight', arial;
 }

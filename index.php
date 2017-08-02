@@ -3,6 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Calc me!</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 	<link rel="stylesheet" type="text/css" href="assets/fonts/open-sans/stylesheet.css">
 	<script type="text/javascript" src="assets/js/angular.min.js"></script>
@@ -10,6 +11,7 @@
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
 <body>	
+	<?php require('/assets/php/log.php') ?>
 	<div class="wrapper clearfix">
 		<header>
 			<h2>Решение квадратных уравнений</h2>
@@ -63,16 +65,16 @@
 						</div>
 			        </div>
 			        <div class="points-wrapper clearfix">
+			        	 <div class="choose-color" ng-show="colorShow">
+				        	<span class="color-span" ng-repeat="color in colors" style="background: {{ color }};" data-color="{{ color }}" ng-click="chooseColor($event)"></span>
+				        </div>	
 				        <div class="show-points">		
 				        	<a href="" class="href-points" ng-click="graph()">Построить график</a> 
 				        	<span class="change-color" ng-click="colorShow=true">Выбрать цвет</span>	
 				        	<a href="" class="href-graph" ng-click="drawTable()">Построить параболу по точкам</a>		        	
 				        	<a href="#" class="add-graph" ng-click="addGraph()">Добавить график</a>
 				        	<a href="#" class="add-graph" ng-click="deleteGraph()">Очистить график и форму</a>
-				        </div>
-				        <div class="choose-color" ng-show="colorShow">
-				        	<span class="color-span" ng-repeat="color in colors" style="background: {{ color }};" data-color="{{ color }}" ng-click="chooseColor($event)"></span>
-				        </div>		        	
+				        </div>				   	        	
 			        </div>
 			        <div class="points-table" ng-show="showTable">
 			        	<h5>Построение параболы по точкам</h5>
@@ -88,6 +90,7 @@
 				<div class="container-right">	
 					<div id="curve_chart" class="js-graph" style="width: 550px; height: 550px" ng-show="showGraph"></div>			
 				</div>
+				<button ng-click="showLog()">Показать логи</button>
 			</div>   
 		</div>
 		<footer class="footer">Тестовое задание 2017</footer>		

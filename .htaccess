@@ -1,2 +1,0 @@
-php_value log_errors "On"
-php_value error_log /log/php_errors.log
