@@ -1,5 +1,21 @@
 (function(){
-	var app = angular.module('calc', []);
+	var app = angular.module('calc', ['ui.router']);
+
+	app.config(function($stateProvider, $urlRouterProvider){
+		
+		$urlRouterProvider.otherwise('index');
+	    
+	    $stateProvider.state('index', {
+	      url: "/index",
+	      templateUrl: "../../assets/templates/mainTemplate.php",
+	      controller: 'quadrController'
+	    })
+	    .state('logs', {
+	      url: '/logs',
+	      templateUrl: "../../assets/templates/logsTemplate.php",
+	      controller: 'logsController'
+	    })	    
+	});
 
 	app.controller('quadrController', function($scope){
 		$scope.pos_begin = -10;
@@ -215,15 +231,19 @@
 		}
 
 		$scope.addGraph = function(){
-			form.reset();
-			pos_begin.setAttribute('disabled', 'disabled');
-			pos_end.setAttribute('disabled', 'disabled');
+			if ($scope.arr.length) {
+				form.reset();
+				pos_begin.setAttribute('disabled', 'disabled');
+				pos_end.setAttribute('disabled', 'disabled');
 
-			$scope.a = '';
-			$scope.b = '';
-			$scope.c = '';
-			
-			numberGraph++;
+				$scope.a = '';
+				$scope.b = '';
+				$scope.c = '';
+				
+				numberGraph++;				
+			} else {
+				return;
+			}
 		}
 
 		$scope.deleteGraph = function (){
@@ -239,10 +259,14 @@
 			$scope.showTable = false;
 			$scope.arr = [];
 			$scope.color = [];
-		}
-
-		$scope.showLog = function() {
-			console.log(User-Agent);
 		}		
+	})
+
+	app.controller('logsController', function($scope, $http) {
+		
+		$http.get("./logs.json")
+		    .then(function(response) {
+        		$scope.logs = response.data;
+    		});
 	})
 })();

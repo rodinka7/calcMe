@@ -193,13 +193,17 @@ input {
 	}
 }
 /* Таблица с координатами точек */
-.points {
+.points,
+.js-logsTable {
 	margin: 0 auto 20px;
 	border-collapse: collapse;
 }
-.points td {
+.points td,
+.js-logsTable td,
+.js-logsTable th {
 	padding: 10px;
 	border: 1px solid gray;
+	font: 12px 'open_sanslight', arial;
 }
 .points tr:nth-child(2n) {
 	background: #81A34A;
@@ -208,6 +212,28 @@ input {
 /* Таблица с координатами точек */
 .js-graph {
 	margin-bottom: 20px;
+}
+.logs-button {
+	display: block;
+
+	width: 100px;
+	line-height: 30px;
+	
+	text-decoration: none;
+	text-align: center;
+
+	background: #B1A5DE;
+	border-radius: 5px;
+	color: #fff;
+	font: 12px 'open_sanslight', arial;
+
+	margin: 10px auto;
+	padding: 7px;
+
+	transition: .3s ease-in-out;
+}
+.logs-button:hover {
+	background: #594C91;
 }
 .footer {
 	height: 40px;
@@ -228,3 +254,15 @@ input {
 	line-height: 40px;
 	font: 12px 'open_sanslight', arial;
 }
+/* Страница Логи */
+.logs-table {
+	width: 90%;
+	margin: auto;
+}
+.logs-button.back {
+	float: right;
+}
+.js-logsTable {
+	width: 100%;
+}
+/* Страница Логи */
