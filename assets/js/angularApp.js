@@ -26,14 +26,13 @@
 		$scope.color = [];
 		
 		var numberGraph = 0,
-			pos_begin = document.querySelector('.pos_begin'),
-			pos_end = document.querySelector('.pos_end'),
-			form = document.querySelector('.form-quadr');
+			pos_begin = $scope.pos_begin,
+			pos_end = $scope.pos_end;			
 
 		$scope.reCalc = function(){
-			var a = $scope.a || 1,
-				b = $scope.b || 1,
-				c = $scope.c || 0,
+			var a = $scope.a,
+				b = $scope.b,
+				c = $scope.c,
 				d,
 				x1, x2;
 
@@ -88,6 +87,10 @@
 		}
 
 		function drawGraph() {
+			if (!$scope.color.length) {
+				$scope.color[0] = 'blue';
+			}
+
 			google.charts.load('current', {'packages':['line']});
 		    google.charts.setOnLoadCallback(drawChart);
 
@@ -134,7 +137,8 @@
 					y = 0;
 
 				if (!numberGraph || !$scope.arr.length) {
-					arr.push(['X', $scope.a + 'x^2 + ' + $scope.b +'x + ' + $scope.c]);
+
+					arr.push(['X', $scope.a + 'x\u00B2 + ' + $scope.b +'x + ' + $scope.c]);
 
 					for (var x = pos_begin; x <= pos_end; x++ ){
 						y = $scope.a*x*x + $scope.b*x + Number($scope.c);
@@ -183,12 +187,7 @@
 					isValid('Поля должны содержать только целые числа и знак "минус"!', container, div, contBefore);
 					return false;
 				} else {
-					if (!$scope.color.length) {
-						isValid('Пожалуйста, выберите цвет!', container, div, contBefore);
-						return false;
-					} else {
-						return true;
-					}
+					return true;
 				}
 			}
 		}
@@ -221,21 +220,18 @@
 			}
 			
 			var target = $event.target,
-				color = target.dataset.color,
-				elem = document.querySelector('.change-color');
-
-			elem.style.color = color;
+				color = target.dataset.color;
 
 			$scope.color.push(color);
+			$scope.changeColor = color;
 			$scope.colorShow = false;
 		}
 
 		$scope.addGraph = function(){
 			if ($scope.arr.length) {
-				form.reset();
-				pos_begin.setAttribute('disabled', 'disabled');
-				pos_end.setAttribute('disabled', 'disabled');
 
+				/*pos_begin.setAttribute('disabled', 'disabled');
+				pos_end.setAttribute('disabled', 'disabled');*/
 				$scope.a = '';
 				$scope.b = '';
 				$scope.c = '';
@@ -246,10 +242,9 @@
 			}
 		}
 
-		$scope.deleteGraph = function (){
-			form.reset();
-			pos_begin.removeAttribute('disabled');
-			pos_end.removeAttribute('disabled');
+		$scope.deleteGraph = function (){			
+			/*pos_begin.removeAttribute('disabled');
+			pos_end.removeAttribute('disabled');*/
 
 			$scope.a = '';
 			$scope.b = '';

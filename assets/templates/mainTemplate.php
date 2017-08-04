@@ -5,7 +5,7 @@
 		        <div class="container-header">
 		        	<h4>Введите коэффициенты:</h4>
 		        </div>
-		        <form class="form-quadr">
+		        <form class="form-quadr" role="form">
 		        	<input type="text" ng-keyup="reCalc()" ng-model="a">
 		        	<span>x<sup>2</sup></span>
 		        	+
@@ -51,7 +51,7 @@
 	        </div>	
 	        <div class="show-points">		
 	        	<a href="" class="href-points" ng-click="graph()">Построить график</a> 
-	        	<span class="change-color" ng-click="colorShow=true">Выбрать цвет</span>	
+	        	<span class="change-color" style="color: {{ changeColor }};" ng-click="colorShow=true">Выбрать цвет</span>	
 	        	<a href="" class="href-graph" ng-click="drawTable()">Построить параболу по точкам</a>        	
 	        	<a href="#" class="add-graph" ng-click="addGraph()">Добавить график</a>
 	        	<a href="#" class="add-graph" ng-click="deleteGraph()">Очистить график и форму</a>
