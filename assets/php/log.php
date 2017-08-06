@@ -25,18 +25,16 @@ $ip = getRealIpAddr();
 
 $date = date("Y-m-d H:i:s");
 
-$insert_row = $connection->query("INSERT INTO logs (ip, bot, date) VALUES('".$ip."', '".$bot."', '".$date."')");
+$query = $pdo->prepare("INSERT INTO logs (ip, bot, date) VALUES('".$ip."', '".$bot."', '".$date."')");
+$query->execute();
 
-if(!$insert_row){
-  die('Error : ('. $connection->errno .') '. $connection->error);
+$stmt = $pdo->query('SELECT * FROM logs');
 
-  return;
-} else {
-  $sql = 'SELECT * FROM `logs` ';
-  $result = $connection->query($sql);
-  $logs = $result->fetch_all(MYSQLI_ASSOC);
-
-  $str = json_encode($logs); 
-  file_put_contents('logs.json', $str);
+while ($row = $stmt->fetch())
+{
+    $logs[] = $row;
 }
+
+$str = json_encode($logs); 
+file_put_contents('logs.json', $str);
 ?>

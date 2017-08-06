@@ -1,0 +1,1 @@
+var app = angular.module('calc', ['ui.router','ngAnimate']);

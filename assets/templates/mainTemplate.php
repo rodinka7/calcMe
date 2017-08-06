@@ -1,75 +1,87 @@
-<div class="container-quadr" ng-controller="quadrController">
+<div class="container-quadr" ng-controller="quadrController as quadr">
 	<div class="container-left">
 		<div class="clearfix">
 			<div class="container-equation">
 		        <div class="container-header">
 		        	<h4>Введите коэффициенты:</h4>
 		        </div>
-		        <form class="form-quadr" role="form">
-		        	<input type="text" ng-keyup="reCalc()" ng-model="a">
+		        <form class="form-quadr" name="form">	      
+		        	<input type="text" ng-change="quadr.reCalc()" ng-model="quadr.a" required>
 		        	<span>x<sup>2</sup></span>
 		        	+
-		        	<input type="text" ng-keyup="reCalc()" ng-model="b">
+		        	<input type="text" ng-change="quadr.reCalc()" ng-model="quadr.b" required>
 		        	<span>x</span>
 		        	+
-		        	<input type="text" ng-keyup="reCalc()" ng-model="c">
+		        	<input type="text" ng-change="quadr.reCalc()" ng-model="quadr.c" required>
 		        	= 0
-		        </form>					
-			</div>
+		        </form>		      
+		        <div class="severalGraph">
+		        	<input type="checkbox" class="input" id="changeOninput" ng-model="quadr.changeOninput">
+		        	<label class="input-label" for="changeOninput">Строить график при любом изменении в инпуте</label> 
+		        	<input type="checkbox" class="input" id="severalGraph" ng-model="quadr.severalGraph" ng-change="quadr.isSeveral()">
+		        	<label class="input-label" for="severalGraph">Строить несколько графиков</label>   
+		        </div>	
+		        <a href="" class="graph-btn" ng-show="!quadr.changeOninput" ng-click="quadr.drawGraph()">Построить график</a>	        			
+			</div>			
 			<div class="container-equation right">
 		        <div class="form-quadr">
 		        	<h4>Выберите интервал по оси Х</h4>
 		        	<span>Интервал [ </span>
-		        	<input type="text" ng-model="pos_begin" class="pos_begin">
+		        	<input type="text" ng-model="quadr.pos_begin" ng-disabled="quadr.chooseInterval" ng-change="quadr.reCalc()">
 		        	<span>, </span>
-		        	<input type="text" ng-model="pos_end" class="pos_end">
+		        	<input type="text" ng-model="quadr.pos_end" ng-disabled="quadr.chooseInterval" ng-change="quadr.reCalc()">
 		        	<span> ]</span> 
 		        </div>					
 			</div>					
 		</div>
-        <div class="result" ng-show="a || b || c">
-        	<h4>Результат:</h4>
-			<div class="result-name">{{ answer }}</div>
-			<div class="result-d">
-				Дискриминант D = 
-				<span>{{ d }}</span>
+		<div class="error">
+			<div class="error-mes" ng-show="quadr.error1">
+				Все поля должны быть заполнены!
 			</div>
-			<div class="result-answer" ng-show="reCalc()">
-				<div class="result-root">
-					x<sub>1</sub> = 
-					<span>{{ x1 }}</span>
+			<div class="error-mes" ng-show="quadr.error2">
+				Поля должны содержать цифры, знак "минус" и знак "."!
+			</div>
+			<div class="error-mes" ng-show="quadr.error3">
+				Введите интервал, в котором строится график!
+			</div>
+	    </div>
+        <div class="result" ng-show="quadr.result">
+        	<h4>Результат:</h4>
+			<div class="result-name">{{ quadr.answer }}</div>
+			<div class="result-d" ng-show="quadr.descriminant">
+				Дискриминант D = 
+				<span>{{ quadr.d }}</span>
+			</div>
+			<div class="result-answer">
+				<div class="result-root" ng-show="quadr.showx1">
+					x&#8321; = 
+					<span>{{ quadr.x1 }}</span>
 				</div>
-				<div class="result-root">
-					x<sub>2</sub> = 
-					<span>{{ x2 }}</span>
+				<div class="result-root" ng-show="quadr.showx2">
+					x&#8322; = 
+					<span>{{ quadr.x2 }}</span>
 				</div>
 			</div>
         </div>
-        <div class="points-wrapper clearfix">
-        	 <div class="choose-color" ng-show="colorShow">
-	        	<span class="color-span" ng-repeat="color in colors" style="background: {{ color }};" data-color="{{ color }}" ng-click="chooseColor($event)"></span>
+        <div class="main-menu clearfix">
+        	 <div class="choose-color" ng-show="quadr.colorShow">
+	        	<span class="color-span" ng-repeat="color in quadr.colors" style="background: {{ color }};" data-color="{{ color }}" ng-click="quadr.chooseColor($event)"></span>
 	        </div>	
-	        <div class="show-points">		
-	        	<a href="" class="href-points" ng-click="graph()">Построить график</a> 
-	        	<span class="change-color" style="color: {{ changeColor }};" ng-click="colorShow=true">Выбрать цвет</span>	
-	        	<a href="" class="href-graph" ng-click="drawTable()">Построить параболу по точкам</a>        	
-	        	<a href="#" class="add-graph" ng-click="addGraph()">Добавить график</a>
-	        	<a href="#" class="add-graph" ng-click="deleteGraph()">Очистить график и форму</a>
+	        <div class="menu">	
+	        	<a href="" class="menu-href" style="color: {{ quadr.changeColor }};" ng-click="quadr.colorShow=true">Выбрать цвет графика</a> 
+	        	<a href="" class="menu-href" ng-click="quadr.deleteGraph()">Очистить график и форму</a>	        	
 	        	<a href="#!/logs" class="logs-button">Показать логи</a>	
 	        </div>		      		   	        	
-        </div>
-        <div class="points-table" ng-show="showTable">
-        	<h5>Построение параболы по точкам</h5>
-        	<table class="points">
-	        	<tbody>
-	        		<tr ng-repeat="elem in arr track by $index">
-	        			<td ng-repeat="item in elem track by $index">{{ item }}</td>
-	        		</tr>
-	        	</tbody>	
-        	</table>
-        </div>
+        </div>        
 	</div>
-	<div class="container-right">	
-		<div id="curve_chart" class="js-graph" style="width: 550px; height: 550px" ng-show="showGraph"></div>		
+	<div class="container-right">		
+		<div id="curve_chart" class="js-graph" style="width: 100%; min-height: 500px;" ng-show="quadr.showGraph" ng-click="quadr.deleteItem($event)"></div>			
 	</div>
-</div> 
+	<div class="delete-item" style="left: {{ quadr.positionX  }}; top: {{ quadr.positionY }}" ng-show="quadr.showDeleteCont">
+		<div> Удалить график?</div>
+		<div class="delete-div">
+			<a href="" class="logs-button" ng-click="quadr.deletion()">Да</a>
+			<a href="" class="logs-button" ng-click="quadr.showDeleteCont=false">Нет</a>
+		</div>
+	</div>	
+</div>
