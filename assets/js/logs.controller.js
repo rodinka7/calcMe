@@ -1,6 +1,8 @@
 app.controller('logsController', function($scope, $http) {
 	var logsCont = this;
 
+	logsCont.showInput = false;
+
 	$http.get("./logs.json")
 	    .then(function(response) {
     		logsCont.logs = response.data;
@@ -9,14 +11,15 @@ app.controller('logsController', function($scope, $http) {
 	logsCont.receiveVal = function(){
 		var data = [];
 
-		if (logsCont.select1 && logsCont.select2) {
-			data.push(logsCont.select1);
-			data.push(logsCont.select2);
-		} else if 
+		if (logsCont.select1) {
+			data.push(logsCont.select1);			
+		} else if (logsCont.select2) {
+			logsCont.showInput = true;
+		} 
 
 		$http.post('./assets/php/logs.filter.php', data)
 			.then(function(response) {
-
+				console.log(response);
 			});
 		
 	}

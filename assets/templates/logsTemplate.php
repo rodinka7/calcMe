@@ -1,4 +1,5 @@
 <div class="container-quadr" ng-controller="logsController as logsCont">
+	<?php require('../php/logs.filter.php') ?>
 	<h3>Логи</h3>	
 	<div class="logs-table">
 		<div class="btn-wrapper clearfix">
