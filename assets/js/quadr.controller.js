@@ -229,6 +229,14 @@ app.controller('quadrController', function(){
 		
 		if (!quadr.color.length) {
 			quadr.color[0] = 'blue';
+		} else if (quadr.severalGraph && quadr.arr.length) {
+				
+			var lastColor = quadr.color[quadr.color.length-1],
+				arrLength = quadr.arr[0].length - 1;
+
+			while (quadr.color.length <= arrLength) {	
+				quadr.color.push(lastColor);
+			}			
 		}
 
 		countPoints(pos_begin, pos_end);
@@ -304,15 +312,17 @@ app.controller('quadrController', function(){
 	    						quadr.arr.forEach(function(el){
 	    							el.splice(index, 1);
 	    						})
+	    						quadr.color.splice(index-1, 1);
 	    					}
 	    				})	    				
     				}
     				quadr.showDeleteCont = false;
-    				console.log(quadr.arr);
     				if (quadr.arr.length){
     					prepareGraph();    					
     				} else {
+    					quadr.result = false;
     					quadr.showGraph = false;
+    					quadr.changeColor = '#81A34A';
     				}
     			}
     		}

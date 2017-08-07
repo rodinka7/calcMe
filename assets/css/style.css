@@ -285,6 +285,27 @@ input {
 
 	font: 12px 'open_sanslight', arial;
 }
+.menu-filters {
+	padding: 10px;
+	background: #B1A5DE;
+	border-radius: 10px;
+	border: 1px solid #fff;
+
+	color: #fff;
+
+	margin-bottom: 10px;
+}
+.menu-filters label {
+	font: 12px 'open_sansregular', arial;
+}
+input.input-logs {
+	width: 250px;
+	text-align: left;
+}
+.select-wrapper {
+	display: inline-block;
+	margin-right: 20px;
+}
 /* Логи */
 .footer {
 	height: 40px;
