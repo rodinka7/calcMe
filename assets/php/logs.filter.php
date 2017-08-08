@@ -1,21 +1,30 @@
 <?php
 require('connection.php');
+$request = json_decode(file_get_contents('php://input'), true);
 
-$user = json_decode(file_get_contents('php://input'), true);
-
-	if (!empty($_POST)) {
-		$param = $_POST;
-		var_dump($_POST);
-		switch ($param) {
-			case 'up':
-				$stmt = $pdo->query('SELECT * FROM logs ORDER BY date');
-
-				while ($row = $stmt->fetch())
-				{
-				    $logs[] = $row;
-				}
-
-				print_r($logs);
-		} 
+if (!empty($request)) {
+	
+	switch ($request[0]) {
+		case 'up':
+			$str = 'SELECT * FROM logs ORDER BY date';
+			formResponse($str, $pdo);			
+			
+			break;
+		case 'down':
+			$str = 'SELECT * FROM logs ORDER BY date DESC';
+			formResponse($str, $pdo);	
+			
+			break;
 	}
+}
+/* Вспомогательная функция - делает выборку из базы данных */
+function formResponse($str, $pdo){
+	$stmt = $pdo->query($str);
+
+	while ($row = $stmt->fetch()){
+	    $logs[] = $row;
+	}
+	print_r(json_encode($logs));
+}
+/* Вспомогательная функция - делает выборку из базы данных */
 ?>

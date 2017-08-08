@@ -1,5 +1,4 @@
 <div class="container-quadr" ng-controller="logsController as logsCont">
-	<?php require('../php/logs.filter.php') ?>
 	<h3>Логи</h3>	
 	<div class="logs-table">
 		<div class="btn-wrapper clearfix">
@@ -24,12 +23,13 @@
 				</div>
 				<div class="select-wrapper">
 					<input class="input-logs" type="text" ng-show="logsCont.showInput" placeholder="{{ logsCont.input }}">
+					<a href="#!/index" class="logs-btn" ng-show="logsCont.showBtn">Получить данные</a>
 				</div>
 			</form>
 		</div>
 		<table class="js-logsTable">
 			<tr><th>IP пользователя</th><th>Браузер пользователя</th><th>Дата посещения сайта</th></tr>
-			<tr ng-repeat="log in logsCont.logs">
+			<tr ng-repeat="log in logsCont.logs track by $index">
 				<td>{{ log.ip }}</td>
 				<td>{{ log.bot }}</td>
 				<td>{{ log.date }}</td>

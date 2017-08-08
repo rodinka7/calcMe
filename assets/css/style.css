@@ -306,6 +306,24 @@ input.input-logs {
 	display: inline-block;
 	margin-right: 20px;
 }
+.logs-btn {
+	display: inline-block;
+	width: 100px;
+	text-decoration: none;
+
+	background: #fff;
+	border-radius: 5px;
+	color: #B1A5DE;
+
+	font: 12px 'open_sanslight', arial;
+
+	transition: .3s ease;
+
+	padding: 5px 7px;
+}
+.logs-btn:hover {
+	color: #594C91;
+}
 /* Логи */
 .footer {
 	height: 40px;
