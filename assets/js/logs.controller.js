@@ -26,12 +26,23 @@ app.controller('logsController', function($scope, $http) {
 		} 
 
 		$http.post('./assets/php/logs.filter.php', data)
-			.then(function(response) {
-				console.log(response);
+			.then(function(response) {				
 				logsCont.logs = response.data;
 			});
 		
+	};
+
+	logsCont.showButton = function() {
+		if (logsCont.val){
+			logsCont.showBtn = true;
+		} else {
+			logsCont.input = 'Введите поисковый запрос!';
+		}
 	}
 
+	logsCont.receiveData = function(){
+
+		console.log(logsCont.val);
+	}
 
 });

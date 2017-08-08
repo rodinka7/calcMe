@@ -9,21 +9,21 @@
 				<div class="select-wrapper">
 					<label for="select-filter">Сортировка по дате посещения:</label>
 					<select id="select-filter" ng-model="logsCont.select1" ng-change="logsCont.receiveVal()">
-						<option value="up">По возростанию</option>
+						<option value="up" selected>По возростанию</option>
 						<option value="down">По убыванию</option>
 					</select>					
 				</div>
 				<div class="select-wrapper">
 					<label for="select-filter">Сортировка по значению:</label>
-					<select id="select-filter" ng-model="logsCont.select2" ng-change="logsCont.receiveVal()">
+					<select id="select-filter" ng-model="logsCont.select2" ng-change="logsCont.receiveVal()">						
 						<option value="ip">IP пользователя</option>
 						<option value="bot">Браузеру пользователя</option>
 						<option value="date">Дате посещения</option>
 					</select>					
 				</div>
 				<div class="select-wrapper">
-					<input class="input-logs" type="text" ng-show="logsCont.showInput" placeholder="{{ logsCont.input }}">
-					<a href="#!/index" class="logs-btn" ng-show="logsCont.showBtn">Получить данные</a>
+					<input class="input-logs" type="text" ng-show="logsCont.showInput" placeholder="{{ logsCont.input }}" ng-change="logsCont.showButton()" ng-model="logsCont.val">
+					<a href="" class="logs-btn" ng-show="logsCont.showBtn" ng-click="logsCont.receiveData()">Получить данные</a>
 				</div>
 			</form>
 		</div>
