@@ -1,18 +1,21 @@
-app.controller('logsController', function($scope, $http) {
+app.controller('logsController', function($scope, List) {
 	var logsCont = this;
 
 	logsCont.showInput = false;
 
-	$http.get("./logs.json")
-	    .then(function(response) {
-    		logsCont.logs = response.data;
-		});
-
+	List.get().then(function(data){
+		logsCont.logs = data;
+	});
+	
 	logsCont.receiveVal = function(){
 		var data = [];
 
 		if (logsCont.select1) {
-			data.push(logsCont.select1);			
+			data.push(logsCont.select1);
+
+			List.post(data).then(function(list){
+				logsCont.logs = list;
+			});				
 		} else if (logsCont.select2) {
 			logsCont.showInput = true;
 
@@ -23,13 +26,7 @@ app.controller('logsController', function($scope, $http) {
 			} else if (logsCont.select2 == 'date') {
 				logsCont.input = '2017-08-08'
 			}
-		} 
-
-		$http.post('./assets/php/logs.filter.php', data)
-			.then(function(response) {				
-				logsCont.logs = response.data;
-			});
-		
+		} 	
 	};
 
 	logsCont.showButton = function() {
@@ -41,8 +38,14 @@ app.controller('logsController', function($scope, $http) {
 	}
 
 	logsCont.receiveData = function(){
+		var data = [];
 
-		console.log(logsCont.val);
+		data.push(logsCont.select2);
+		data.push(logsCont.val);
+
+		List.post(data).then(function(list){
+			logsCont.logs = list;
+		});
 	}
 
 });

@@ -15,6 +15,18 @@ if (!empty($request)) {
 			formResponse($str, $pdo);	
 			
 			break;
+		case 'ip':
+			$search = $request[1];
+			$query = "SELECT * FROM logs WHERE ip LIKE %$search%";
+			$stmt = $pdo->prepare($query);
+			$stmt->execute();
+
+			while ($row = $stmt->fetch()){
+			    $logs[] = $row;
+			}
+
+			print_r(json_encode($logs));
+			break;
 	}
 }
 /* Вспомогательная функция - делает выборку из базы данных */
