@@ -257,16 +257,32 @@ app.controller('quadrController', function(){
 	        var options = {
 	          curveType: 'function',
 	          legend: { position: 'right' },
-	          colors: quadr.color,
+	          colors: quadr.color,	       
+	          hAxis: { 
+	          	title: 'X',
+	          	gridlines: { 
+	          		count: 15,
+	          		color: '#bfbdbd'
+	          	 },
+	          	baselineColor: 'red'
+	          },
 	          vAxis: {
 	          	title: 'Y',
-	          	format: '#######'
+	          	format: '#######',
+	          	gridlines: { 
+	          		count: 15,
+	          		color: '#bfbdbd'
+	          	 },
+	          	baselineColor: 'red'
 	          },
-	          hAxis: { title: 'X'},
 	          crosshair: { 
-	          	trigger: 'focus' 
+	          	trigger: 'focus',
+	          	focused: { 
+	          		color: '#3bc', 
+	          		opacity: 0.5 
+	          	}           	  
 	          },
-	          pointSize: 5	                   
+	          pointSize: 5	                       
 	        };
 
 	        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
@@ -329,4 +345,16 @@ app.controller('quadrController', function(){
     	}
     }
     /* Удаление графика одной функции */
+
+    /* Скрываем блок delete при клике на документе */
+    function hideDeletion(){
+    	document.body.addEventListener('click', function(e){
+    		if (e.target && quadr.showDeleteCont) {    			
+    			quadr.showDeleteCont = false;
+    		}
+    	})
+    }
+
+    hideDeletion();
+    /* Скрываем блок delete при клике на документе */
 });

@@ -3,10 +3,13 @@ app.controller('logsController', function($scope, List) {
 
 	logsCont.showInput = false;
 
+	/* При загрузке страницы отображаются логи */
 	List.get().then(function(data){
 		logsCont.logs = data;
 	});
-	
+	/* При загрузке страницы отображаются логи */
+
+	/* Передеает данные на сервер при изменении в селекте */	
 	logsCont.receiveVal = function(){
 		var data = [];
 
@@ -16,19 +19,26 @@ app.controller('logsController', function($scope, List) {
 			List.post(data).then(function(list){
 				logsCont.logs = list;
 			});				
-		} else if (logsCont.select2) {
+		}
+
+		if (logsCont.select2) {
 			logsCont.showInput = true;
 
 			if (logsCont.select2 == 'ip') {
-				logsCont.input = '127.0.0.1'
+				logsCont.input = '127.0.0.1';
+				logsCont.val = '';
 			} else if (logsCont.select2 == 'bot') {
-				logsCont.input = 'Mozilla'
+				logsCont.input = 'Mozilla';
+				logsCont.val = '';
 			} else if (logsCont.select2 == 'date') {
-				logsCont.input = '2017-08-08'
+				logsCont.input = '2017-08-08';
+				logsCont.val = '';
 			}
 		} 	
 	};
+	/* Передеает данные на сервер при изменении в селекте */
 
+	/* Показывает кнопку - получить данные */
 	logsCont.showButton = function() {
 		if (logsCont.val){
 			logsCont.showBtn = true;
@@ -36,7 +46,9 @@ app.controller('logsController', function($scope, List) {
 			logsCont.input = 'Введите поисковый запрос!';
 		}
 	}
+	/* Показывает кнопку - получить данные */
 
+	/* Передает данные на сервер из инпута */
 	logsCont.receiveData = function(){
 		var data = [];
 
@@ -47,7 +59,9 @@ app.controller('logsController', function($scope, List) {
 			logsCont.logs = list;
 		});
 	}
+	/* Передает данные на сервер из инпута */
 
+	/* Передает данные на сервер при нажатии Enter */
 	function onEnter(){
 		document.body.addEventListener('keyup', function(e){
 			if (logsCont.select2 
@@ -59,5 +73,5 @@ app.controller('logsController', function($scope, List) {
 	}
 
 	onEnter();
-
+	/* Передает данные на сервер при нажатии Enter */
 });
