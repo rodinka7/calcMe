@@ -6,23 +6,23 @@
 		</div>
 		<div class="menu-filters">
 			<form>
-				<div class="select-wrapper">
-					<label for="select-filter">Сортировка по дате посещения:</label>
+				<div class="select-wrapper">					
 					<select id="select-filter" ng-model="logsCont.select1" ng-change="logsCont.receiveVal()">
-						<option value="up" selected>По возростанию</option>
+						<option value="">Сортировка по дате посещения:</option>
+						<option value="up">По возростанию</option>
 						<option value="down">По убыванию</option>
 					</select>					
 				</div>
-				<div class="select-wrapper">
-					<label for="select-filter">Сортировка по значению:</label>
-					<select id="select-filter" ng-model="logsCont.select2" ng-change="logsCont.receiveVal()">						
+				<div class="select-wrapper">					
+					<select id="select-filter" ng-model="logsCont.select2" ng-change="logsCont.receiveVal()">	
+						<option value="">Сортировка по значению:</option>					
 						<option value="ip">IP пользователя</option>
 						<option value="bot">Браузеру пользователя</option>
 						<option value="date">Дате посещения</option>
 					</select>					
 				</div>
-				<div class="select-wrapper">
-					<input class="input-logs" type="text" ng-show="logsCont.showInput" placeholder="{{ logsCont.input }}" ng-change="logsCont.showButton()" ng-model="logsCont.val">
+				<div class="select-wrapper" ng-show="logsCont.showInput">
+					<input class="input-logs" type="text" placeholder="{{ logsCont.input }}" ng-change="logsCont.showButton()" ng-model="logsCont.val">
 					<a href="" class="logs-btn" ng-show="logsCont.showBtn" ng-click="logsCont.receiveData()">Получить данные</a>
 				</div>
 			</form>

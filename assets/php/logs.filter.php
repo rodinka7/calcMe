@@ -16,17 +16,18 @@ if (!empty($request)) {
 			
 			break;
 		case 'ip':
-			$search = $request[1];
-			$query = "SELECT * FROM logs WHERE ip LIKE %$search%";
-			$stmt = $pdo->prepare($query);
-			$stmt->execute();
-
-			while ($row = $stmt->fetch()){
-			    $logs[] = $row;
-			}
-
-			print_r(json_encode($logs));
+			receiveData($request[1], 'ip', $pdo);
+						
 			break;
+		case 'bot':
+			receiveData($request[1], 'bot', $pdo);
+						
+			break;
+		case 'date':
+			receiveData($request[1], 'date', $pdo);
+						
+			break;
+
 	}
 }
 /* Вспомогательная функция - делает выборку из базы данных */
@@ -39,4 +40,16 @@ function formResponse($str, $pdo){
 	print_r(json_encode($logs));
 }
 /* Вспомогательная функция - делает выборку из базы данных */
+
+/* Вспомогательная функция - делает поиск по ключевому слову и выборку из базы данных */
+function receiveData($str, $column, $pdo) {			
+	$search = '%'.$str.'%';
+	
+	$stmt  = $pdo->prepare("SELECT * FROM logs WHERE $column LIKE ?");
+	$stmt->execute(array($search));
+	$data = $stmt->fetchAll();
+
+	print_r(json_encode($data));
+}
+/* Вспомогательная функция - делает поиск по ключевому слову и выборку из базы данных */
 ?>

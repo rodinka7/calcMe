@@ -48,4 +48,16 @@ app.controller('logsController', function($scope, List) {
 		});
 	}
 
+	function onEnter(){
+		document.body.addEventListener('keyup', function(e){
+			if (logsCont.select2 
+				&& logsCont.val
+				&& e.keyCode == 13) {
+				logsCont.receiveData();
+			}
+		})
+	}
+
+	onEnter();
+
 });
