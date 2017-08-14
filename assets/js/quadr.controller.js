@@ -1,8 +1,6 @@
 app.controller('quadrController', function(){
 	var quadr = this;
 
-	quadr.pos_begin = -10;
-	quadr.pos_end = 10;
 	quadr.result = false;
 	quadr.descriminant = false;
 	quadr.x1 = false;
@@ -31,15 +29,15 @@ app.controller('quadrController', function(){
 
 			if ( a == 0 && b == 0 && c == 0) {
 				quadr.answer = 'Верное равенство: 0 = 0!';	
-				isTrue(false, false, false, true, pos_begin, pos_end);				
+				isTrue(false, false, false, true);				
 			} else if ((a == 0) && (b == 0)) {
 				quadr.answer = 'Неверное равенство: ' + c + ' = 0!';			
-				isTrue(false, false, false, false, pos_begin, pos_end);
+				isTrue(false, false, false, false);
 			} else if (a == 0 && b != 0) {
 				quadr.answer = 'Уравнение стало линейным с одним корнем!';
 				x1 = - (c/b);
 				quadr.x1 = x1;	
-				isTrue(true, false, false, true, pos_begin, pos_end);				
+				isTrue(true, false, false, true);				
 			} else {
 				d = Math.pow(b, 2) - 4*a*c;
 				quadr.d = d;
@@ -47,17 +45,17 @@ app.controller('quadrController', function(){
 
 				if (isNaN(d)) {
 					quadr.answer = 'Вы ввели некорректные коэффициенты!';
-					isTrue(false, false, false, false, pos_begin, pos_end);		
+					isTrue(false, false, false, false);		
 				} else if (d < 0) {
 					quadr.answer = 'Уравнение не имеет вещественных корней!';
-					isTrue(false, false, true, true, pos_begin, pos_end);					
+					isTrue(false, false, true, true);					
 				} else if (d === 0) {
 					quadr.answer = 'Уравнение имеет 1 корень!';
 					x1 = -b/(2*a);
 					quadr.x1 = x1;				
 												
 					quadr.x2 = 'x\u2081 = ' + x1;
-					isTrue(true, true, true, true, pos_begin, pos_end);			
+					isTrue(true, true, true, true);			
 				} else {
 					quadr.answer = 'Уравнение имеет 2 корня!';
 					x1 = (-b - Math.sqrt(quadr.d))/(2*a);
@@ -65,7 +63,7 @@ app.controller('quadrController', function(){
 
 					quadr.x1 = x1;
 					quadr.x2 = x2;
-					isTrue(true, true, true, true, pos_begin, pos_end);
+					isTrue(true, true, true, true);
 				}			
 			}
 		} else {
@@ -76,13 +74,13 @@ app.controller('quadrController', function(){
 	/* reCalc - считает значение дискриминанта и корней уравнения */
 
 	/* Вспомогательная функция для reCalc - присваивает переменным переданные значения */
-	function isTrue(isX1, isX2, isDescriminanmt, isGraph,pos_begin, pos_end) {
+	function isTrue(isX1, isX2, isDescriminanmt, isGraph) {
 		quadr.showx1 = isX1;
 		quadr.showx2 = isX2;
 		quadr.descriminant = isDescriminanmt;
 
 		if (quadr.changeOninput && isGraph){
-			graph(pos_begin, pos_end);
+			graph();
 		}	
 	}
 	/* Вспомогательная фуункция - присваивает переменным переданные значения */
@@ -113,11 +111,38 @@ app.controller('quadrController', function(){
 	}
 	/* Делает активным/неактивным элемент с выбором интервалов */
 
-	/* Формирует основной массив */
-	function countPoints(pos_begin, pos_end){		
+	/* В зависимости от значений корней вызывает функцию, формирующую основной массив */
+	function countPoints(){		
+		var string = lessZero();
+
+		if (quadr.x1 > quadr.x2) {
+			var x1 = quadr.x2 - 5,
+				x2 = quadr.x1 + 5,
+				point = (x2 - x1)/100;
+
+			countPointsInner(x1, x2, string, point);
+		} else if (quadr.x1 < quadr.x2) {
+			var x1 = quadr.x1 - 5,
+				x2 = quadr.x2 + 5,
+				point = (x2 - x1)/100;
+			countPointsInner(x1, x2, string, point);
+		} else if (quadr.d === 0) {
+			var x1 = quadr.x1;
+		} else if (quadr.d < 0) {
+			b = - quadr.b / (2*quadr.a);
+
+			var x1 = b - 5,
+				x2 = b + 5,
+				point = 0.1;
+			countPointsInner(x1, x2, string, point); 
+		}				
+	}
+	/* В зависимости от значений корней вызывает функцию, формирующую основной массив */
+
+	/* Вспомогательная функция -  формирует основной массив */
+	function countPointsInner(x1, x2, string, point){
 		var arr = [], 
-			y = 0,
-			string = lessZero();
+			y = 0;
 
 		if ((!quadr.severalGraph && quadr.arr.length) 
 			|| (quadr.severalGraph && !quadr.arr.length) 
@@ -125,24 +150,24 @@ app.controller('quadrController', function(){
 
 			arr.push(['X', string]);
 
-			for (var x = pos_begin; x <= pos_end; x++){
+			for (var x = x1; x <= x2; x += point){
 				y = quadr.a*x*x + quadr.b*x + Number(quadr.c);
 				
 				arr.push([x,y]);				
 			}			
 			quadr.arr = arr;
 		} else {			
-			var x = pos_begin;
+			var x = x1;
 			
 			quadr.arr[0].push(string);
 
 			for (let i = 1; i < quadr.arr.length; i++) {
 				quadr.arr[i].push(quadr.a*x*x + quadr.b*x + Number(quadr.c));
-				x++;
+				x += point;
 			}
-		}		
+		}
 	}
-	/* Формирует основной массив */
+	/* Вспомогательная функция -  формирует основной массив */
 
 	/* Валидация */
 	function validate() {
@@ -260,6 +285,7 @@ app.controller('quadrController', function(){
 	          colors: quadr.color,	       
 	          hAxis: { 
 	          	title: 'X',
+	          	format: '#######',
 	          	gridlines: { 
 	          		count: 15,
 	          		color: '#bfbdbd'
