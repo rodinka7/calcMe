@@ -17,26 +17,34 @@ app.controller('quadrController', function(){
 		quadr.showGraph = false;
 		
 		if (validate()) {
-			var a = quadr.a,
-				b = quadr.b,
-				c = quadr.c,
-				pos_begin = quadr.pos_begin,
-				pos_end = quadr.pos_end,
+			var a = quadr.a || 1,
+				b = quadr.b || 1,
+				c = quadr.c || 0,
 				d,
 				x1, x2;
-			
+							
 			quadr.result = true;
 
 			if ( a == 0 && b == 0 && c == 0) {
 				quadr.answer = 'Верное равенство: 0 = 0!';	
+				quadr.begin = - 5;
+				quadr.end = 5;
+				quadr.straph = 0.1;
+
 				isTrue(false, false, false, true);				
 			} else if ((a == 0) && (b == 0)) {
 				quadr.answer = 'Неверное равенство: ' + c + ' = 0!';			
+				
 				isTrue(false, false, false, false);
 			} else if (a == 0 && b != 0) {
 				quadr.answer = 'Уравнение стало линейным с одним корнем!';
 				x1 = - (c/b);
 				quadr.x1 = x1;	
+
+				quadr.begin = x1 - 5;
+				quadr.end = x1 + 5;
+				quadr.straph = 0.1;
+				
 				isTrue(true, false, false, true);				
 			} else {
 				d = Math.pow(b, 2) - 4*a*c;
@@ -48,6 +56,13 @@ app.controller('quadrController', function(){
 					isTrue(false, false, false, false);		
 				} else if (d < 0) {
 					quadr.answer = 'Уравнение не имеет вещественных корней!';
+
+					var top = - b / (2*a);
+
+					quadr.begin = top - 5;
+					quadr.end = top + 5,
+					quadr.straph = 0.1;
+
 					isTrue(false, false, true, true);					
 				} else if (d === 0) {
 					quadr.answer = 'Уравнение имеет 1 корень!';
@@ -55,6 +70,11 @@ app.controller('quadrController', function(){
 					quadr.x1 = x1;				
 												
 					quadr.x2 = 'x\u2081 = ' + x1;
+
+					quadr.begin = x1 - 5,
+					quadr.end = x1 + 5,
+					quadr.straph = 0.1;
+
 					isTrue(true, true, true, true);			
 				} else {
 					quadr.answer = 'Уравнение имеет 2 корня!';
@@ -63,6 +83,16 @@ app.controller('quadrController', function(){
 
 					quadr.x1 = x1;
 					quadr.x2 = x2;
+
+					if (x1 > x2) {
+						quadr.begin = x2 - 5;
+						quadr.end = x1 + 5;
+						quadr.straph = (x1 - x2)/100;				
+					} else if (x1 < x2) {
+						quadr.begin = x1 - 5;
+						quadr.end = x2 + 5;
+						quadr.straph = (x2 - x1)/100;						
+					}
 					isTrue(true, true, true, true);
 				}			
 			}
@@ -101,47 +131,10 @@ app.controller('quadrController', function(){
 	}
 	/* Вспомогательная функция для CountPoints() - составляет строку */
 
-	/* Делает активным/неактивным элемент с выбором интервалов */
-	quadr.isSeveral = function(){		
-		if (quadr.severalGraph) {
-			quadr.chooseInterval = true;					
-		} else {
-			quadr.chooseInterval = false;
-		}
-	}
-	/* Делает активным/неактивным элемент с выбором интервалов */
-
-	/* В зависимости от значений корней вызывает функцию, формирующую основной массив */
+	/* Формируется основной массив */
 	function countPoints(){		
-		var string = lessZero();
-
-		if (quadr.x1 > quadr.x2) {
-			var x1 = quadr.x2 - 5,
-				x2 = quadr.x1 + 5,
-				point = (x2 - x1)/100;
-
-			countPointsInner(x1, x2, string, point);
-		} else if (quadr.x1 < quadr.x2) {
-			var x1 = quadr.x1 - 5,
-				x2 = quadr.x2 + 5,
-				point = (x2 - x1)/100;
-			countPointsInner(x1, x2, string, point);
-		} else if (quadr.d === 0) {
-			var x1 = quadr.x1;
-		} else if (quadr.d < 0) {
-			b = - quadr.b / (2*quadr.a);
-
-			var x1 = b - 5,
-				x2 = b + 5,
-				point = 0.1;
-			countPointsInner(x1, x2, string, point); 
-		}				
-	}
-	/* В зависимости от значений корней вызывает функцию, формирующую основной массив */
-
-	/* Вспомогательная функция -  формирует основной массив */
-	function countPointsInner(x1, x2, string, point){
-		var arr = [], 
+		var string = lessZero(),
+			arr = [], 
 			y = 0;
 
 		if ((!quadr.severalGraph && quadr.arr.length) 
@@ -150,51 +143,41 @@ app.controller('quadrController', function(){
 
 			arr.push(['X', string]);
 
-			for (var x = x1; x <= x2; x += point){
+			for (var x = quadr.begin; x <= quadr.end; x += quadr.straph){
 				y = quadr.a*x*x + quadr.b*x + Number(quadr.c);
 				
 				arr.push([x,y]);				
 			}			
 			quadr.arr = arr;
-		} else {			
-			var x = x1;
-			
+		} else {					
 			quadr.arr[0].push(string);
 
 			for (let i = 1; i < quadr.arr.length; i++) {
+				let x = quadr.arr[i][0];
+
 				quadr.arr[i].push(quadr.a*x*x + quadr.b*x + Number(quadr.c));
-				x += point;
 			}
-		}
+		}		
 	}
-	/* Вспомогательная функция -  формирует основной массив */
+	/* Формируется основной массив */
 
 	/* Валидация */
 	function validate() {
 		var reg = /^\-?\d+\.?\d*$/;
 
 		if (!quadr.a || !quadr.b 
-			|| !quadr.c || !quadr.pos_begin 
-			|| !quadr.pos_end) {
+			|| !quadr.c) {
 
 			quadr.error1 = true;
 			return false;
 		} else { 
 			if (!reg.test(quadr.a) || !reg.test(quadr.b) 
-				|| !reg.test(quadr.c) || !reg.test(quadr.pos_begin)
-				|| !reg.test(quadr.pos_end)){
+				|| !reg.test(quadr.c)){
 
 				quadr.error2 = true;
 				return false;
 			} else {
-				if (quadr.pos_begin == 0 
-					&& quadr.pos_end == 0) {
-
-					quadr.error3 = true;
-					return false;
-				} else {
-					return true;
-				}
+				return true;
 			} 
 		}
 	}
@@ -219,7 +202,6 @@ app.controller('quadrController', function(){
 
 	/* Удаляет все графики */
 	quadr.deleteGraph = function (){			
-		quadr.chooseInterval = false;
 		quadr.result = false;
 		quadr.severalGraph = false;
 		quadr.changeColor = '#81A34A';
@@ -242,7 +224,7 @@ app.controller('quadrController', function(){
 		if (validate() 
 			&& (quadr.answer.indexOf(str1) < 0) 
 			&& (quadr.answer.indexOf(str2) < 0)){
-    		graph(quadr.pos_begin, quadr.pos_end);
+    		graph();
 		}  else {
 			return;
 		}	
@@ -250,7 +232,7 @@ app.controller('quadrController', function(){
     /* Вызывает функцию отрисовки графика - при отрисовке при нажатии на кнопку */
 
     /* Вспомогательная функция для drawGraph() - вызывает подготовку массива и отрисовку графика */
-	function graph(pos_begin, pos_end) {
+	function graph() {
 		
 		if (!quadr.color.length) {
 			quadr.color[0] = 'blue';
@@ -264,7 +246,7 @@ app.controller('quadrController', function(){
 			}			
 		}
 
-		countPoints(pos_begin, pos_end);
+		countPoints();
 		quadr.showGraph = true;
 		
 		prepareGraph();		
@@ -285,7 +267,7 @@ app.controller('quadrController', function(){
 	          colors: quadr.color,	       
 	          hAxis: { 
 	          	title: 'X',
-	          	format: '#######',
+	          	format: '#.##',
 	          	gridlines: { 
 	          		count: 15,
 	          		color: '#bfbdbd'
@@ -294,7 +276,7 @@ app.controller('quadrController', function(){
 	          },
 	          vAxis: {
 	          	title: 'Y',
-	          	format: '#######',
+	          	format: '#.##',
 	          	gridlines: { 
 	          		count: 15,
 	          		color: '#bfbdbd'
@@ -308,7 +290,7 @@ app.controller('quadrController', function(){
 	          		opacity: 0.5 
 	          	}           	  
 	          },
-	          pointSize: 5	                       
+	          pointSize: 2	                       
 	        };
 
 	        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
@@ -356,9 +338,10 @@ app.controller('quadrController', function(){
 	    						})
 	    						quadr.color.splice(index-1, 1);
 	    					}
-	    				})	    				
+	    				})
+	    				quadr.changeColor = quadr.color[quadr.color.lenght-1];	    				
     				}
-    				quadr.showDeleteCont = false;
+    				quadr.showDeleteCont = false;    				
     				if (quadr.arr.length){
     					prepareGraph();    					
     				} else {
@@ -368,19 +351,9 @@ app.controller('quadrController', function(){
     				}
     			}
     		}
-    	}
+    	} else {
+			quadr.showDeleteCont = false;
+		}
     }
     /* Удаление графика одной функции */
-
-    /* Скрываем блок delete при клике на документе */
-    function hideDeletion(){
-    	document.body.addEventListener('click', function(e){
-    		if (e.target && quadr.showDeleteCont) {    			
-    			quadr.showDeleteCont = false;
-    		}
-    	})
-    }
-
-    hideDeletion();
-    /* Скрываем блок delete при клике на документе */
 });

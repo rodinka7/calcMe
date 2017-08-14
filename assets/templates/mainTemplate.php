@@ -18,21 +18,11 @@
 		        <div class="severalGraph">
 		        	<input type="checkbox" class="input" id="changeOninput" ng-model="quadr.changeOninput">
 		        	<label class="input-label" for="changeOninput">Строить график при любом изменении в инпуте</label> 
-		        	<input type="checkbox" class="input" id="severalGraph" ng-model="quadr.severalGraph" ng-change="quadr.isSeveral()">
+		        	<input type="checkbox" class="input" id="severalGraph" ng-model="quadr.severalGraph">
 		        	<label class="input-label" for="severalGraph">Строить несколько графиков</label>   
 		        </div>	
 		        <a href="" class="graph-btn" ng-show="!quadr.changeOninput" ng-click="quadr.drawGraph()">Построить график</a>	        			
-			</div>			
-			<div class="container-equation right">
-		        <div class="form-quadr">
-		        	<h4>Выберите интервал по оси Х</h4>
-		        	<span>Интервал [ </span>
-		        	<input type="text" ng-model="quadr.pos_begin" ng-disabled="quadr.chooseInterval" ng-change="quadr.reCalc()">
-		        	<span>, </span>
-		        	<input type="text" ng-model="quadr.pos_end" ng-disabled="quadr.chooseInterval" ng-change="quadr.reCalc()">
-		        	<span> ]</span> 
-		        </div>					
-			</div>					
+			</div>							
 		</div>
 		<div class="error">
 			<div class="error-mes" ng-show="quadr.error1">
@@ -40,10 +30,7 @@
 			</div>
 			<div class="error-mes" ng-show="quadr.error2">
 				Поля должны содержать цифры, знак "минус" и знак "."!
-			</div>
-			<div class="error-mes" ng-show="quadr.error3">
-				Введите интервал, в котором строится график!
-			</div>
+			</div>			
 	    </div>
         <div class="result" ng-show="quadr.result">
         	<h4>Результат:</h4>
@@ -75,7 +62,7 @@
         </div>        
 	</div>
 	<div class="container-right">		
-		<div id="curve_chart" class="js-graph" style="width: 100%; min-height: 500px;" ng-show="quadr.showGraph" ng-click="quadr.deleteItem($event)"></div>			
+		<div id="curve_chart" class="js-graph" style="width: 100%; min-height: 80vh;" ng-show="quadr.showGraph" ng-click="quadr.deleteItem($event)"></div>			
 	</div>
 	<div class="delete-item" style="left: {{ quadr.positionX  }}; top: {{ quadr.positionY }}" ng-show="quadr.showDeleteCont">
 		<div> Удалить график?</div>
@@ -83,5 +70,5 @@
 			<a href="" class="logs-button" ng-click="quadr.deletion()">Да</a>
 			<a href="" class="logs-button" ng-click="quadr.showDeleteCont=false">Нет</a>
 		</div>
-	</div>	
+	</div>			
 </div>

@@ -9,8 +9,12 @@ h2, h3, h4, h5 {
 	font-family: 'open_sansregular';
 
 	text-align: center;
+	margin: 5px auto 10px;
 }
 
+h2 {
+	margin-bottom: 20px;
+}
 div {
 	font: 16px 'open_sansregular', arial;
 }
@@ -36,24 +40,24 @@ input {
 	box-sizing: border-box;
 
 	width: 100%;
-	min-height: calc(100vh - 20px);
+	min-height: 100vh;
 
 	position: relative;
 	padding-bottom: 50px;
 }
 .container {
 	width: 95%;
-	margin: auto;
+	margin: 0 auto 20px;
 }
 .container-left {
 	float: left;
-	width: 47%;
+
+	width: 28%;
 }
 .container-right {
 	float: right;
 
-	width: 52%;
-	min-height: 500px;
+	width: 70%;
 
 	position: relative;
 	overflow: hidden;
@@ -70,31 +74,18 @@ input {
 	text-align: center;	
 }
 .container-equation {
-	float: left;
-
 	background: #B1A5DE;
 	border: 1px solid #fff;
 	border-radius: 10px;
 	color: #fff;
 	
-	padding: 20px;	
+	padding: 5px;	
 }
-.container-equation.right {
-	float: right;
-}
-@media screen and (max-width: 1210px) {
-	.container-equation,
-	.container-equation.right {
-		float: none;
-		display: inline-block;
 
-		margin: 10px auto;		
-	}
-}
 /* Валидация */
 .error {
 	width: 100%;
-	margin: 10px auto;
+	margin: 5px auto;
 	min-height: 20px;
 }
 .error-mes {
@@ -105,8 +96,6 @@ input {
 }
 /* Валидация */
 .result {
-	width: 50%;
-
 	padding: 10px;
 	background: #81A34A;
 	color: #fff;
@@ -114,8 +103,6 @@ input {
 	text-align: center;
 	border-radius: 10px;
 	border: 1px solid #fff;
-
-	margin: 10px auto 20px;
 }
 @media screen and (max-width: 1210px) {
 	.result {
@@ -166,12 +153,13 @@ input {
 	border: 1px solid #608c15;
 	border-radius: 5px;
 }
+.main-menu {
+	margin-top: 20px;
+}
 .menu {
-	width: 45%;
-	float: left;
-
 	border: 1px solid #B1A5DE;
 	border-radius: 10px;
+
 	padding: 10px;
 }
 .menu-href {
@@ -194,22 +182,18 @@ input {
 	color: #594C91;
 	margin-right: 5px;
 }
-
-.main-menu {
-	padding-top: 20px;
-}
-
 .choose-color {
-	width: 40%;
+	width: 12%;
 	float: right;
 	border: 1px solid #B1A5DE;
 	border-radius: 10px;
 
 	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-between;
+	flex-flow: row wrap;
+	justify-content: space-around;
 
 	padding: 10px;
+	margin: 10px;
 }
 .color-span {
 	display: inline-block;
@@ -253,7 +237,7 @@ input {
 	font: 12px 'open_sansbold', arial;
 
 	margin: 10px auto;
-	padding: 7px;
+	padding: 5px;
 
 	transition: .3s ease-in-out;
 }
@@ -346,15 +330,15 @@ input.input-logs {
 	box-sizing: border-box;
 	border: 1px solid #81A34A;
 
-	position: absolute;
-	bottom: 0;
-	left:0;
-
 	padding: 10px;
 	text-align: right;
 
 	line-height: 40px;
 	font: 12px 'open_sanslight', arial;
+
+	position: absolute;
+	left: 0;
+	bottom: 0;
 }
 
 /* Анимация графика*/
