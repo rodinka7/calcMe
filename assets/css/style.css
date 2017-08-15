@@ -2,6 +2,8 @@ body {
 	background: #F1E4FE;
 	margin: 0;
 	padding: 0;
+
+	overflow: hidden;
 }
 
 h2, h3, h4, h5 {
@@ -43,11 +45,11 @@ input {
 	min-height: 100vh;
 
 	position: relative;
-	padding-bottom: 50px;
+	padding-bottom: 40px;
 }
 .container {
 	width: 95%;
-	margin: 0 auto 20px;
+	margin: 0 auto 10px;
 }
 .container-left {
 	float: left;
@@ -96,6 +98,8 @@ input {
 }
 /* Валидация */
 .result {
+	box-sizing: border-box;
+
 	padding: 10px;
 	background: #81A34A;
 	color: #fff;
@@ -157,6 +161,7 @@ input {
 	margin-top: 20px;
 }
 .menu {
+	box-sizing: border-box;
 	border: 1px solid #B1A5DE;
 	border-radius: 10px;
 
@@ -268,6 +273,11 @@ input {
 	border: 1px solid #B1A5DE;
 
 	font: 12px 'open_sanslight', arial;
+
+	user-select: none;
+}
+.js-logsTable th {
+	cursor: pointer;
 }
 .menu-filters {
 	padding: 10px;
@@ -366,7 +376,7 @@ input.input-logs {
 /* Анимация графика*/
 
 /* Удалить график */
-.delete-item {
+.delete-item{
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -376,9 +386,14 @@ input.input-logs {
 	background: rgba(177, 165, 222, .7);
 	border: 1px solid #fff;
 	border-radius: 10px;
-	font: 12px 'open_sansmedium', arial;
 	z-index: 99999;
 
 	color: #fff;
+}
+.delete-item div {
+	font: 12px 'open_sansregular', arial;
+}
+.logs-button.del {
+	width: 50px;
 }
 /* Удалить график */

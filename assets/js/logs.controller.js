@@ -1,5 +1,6 @@
 app.controller('logsController', function($scope, List) {
-	var logsCont = this;
+	var logsCont = this,
+		sort = 'up';
 
 	logsCont.showInput = false;
 
@@ -9,18 +10,32 @@ app.controller('logsController', function($scope, List) {
 	});
 	/* При загрузке страницы отображаются логи */
 
-	/* Передеает данные на сервер при изменении в селекте */	
-	logsCont.receiveVal = function(){
+	/*  */
+	logsCont.sort = function() {
+		switch(sort) {
+			case 'up':
+				sort = 'down';
+				logsCont.arrowTrue = true;
+				logsCont.arrow = 'U+2191';
+				break;
+			case 'down':
+				sort = 'up';
+				logsCont.arrowTrue = true;
+				logsCont.arrow = 'U+2193';
+				break;
+		}
+		
 		var data = [];
 
-		if (logsCont.select1) {
-			data.push(logsCont.select1);
+		data.push(sort);
 
-			List.post(data).then(function(list){
-				logsCont.logs = list;
-			});				
-		}
+		List.post(data).then(function(list){
+			logsCont.logs = list;
+		});	
 
+	}
+	/* Передеает данные на сервер при изменении в селекте */	
+	logsCont.receiveVal = function(){
 		if (logsCont.select2) {
 			logsCont.showInput = true;
 

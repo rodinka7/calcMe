@@ -26,10 +26,10 @@
 		</div>
 		<div class="error">
 			<div class="error-mes" ng-show="quadr.error1">
-				Все поля должны быть заполнены!
+				Введите коэффициенты уравнения!
 			</div>
 			<div class="error-mes" ng-show="quadr.error2">
-				Поля должны содержать цифры, знак "минус" и знак "."!
+				Коэффициенты должны содержать цифры, знак "минус" и знак "."!
 			</div>			
 	    </div>
         <div class="result" ng-show="quadr.result">
@@ -67,8 +67,8 @@
 	<div class="delete-item" style="left: {{ quadr.positionX  }}; top: {{ quadr.positionY }}" ng-show="quadr.showDeleteCont">
 		<div> Удалить график?</div>
 		<div class="delete-div">
-			<a href="" class="logs-button" ng-click="quadr.deletion()">Да</a>
-			<a href="" class="logs-button" ng-click="quadr.showDeleteCont=false">Нет</a>
+			<a href="" class="logs-button del" ng-click="quadr.deletion()">Да</a>
+			<a href="" class="logs-button del" ng-click="quadr.showDeleteCont=false">Нет</a>
 		</div>
 	</div>			
 </div>

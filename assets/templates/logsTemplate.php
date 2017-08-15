@@ -28,7 +28,7 @@
 			</form>
 		</div>
 		<table class="js-logsTable">
-			<tr><th>IP пользователя</th><th>Браузер пользователя</th><th>Дата посещения сайта</th></tr>
+			<tr ng-click="logsCont.sort()"><th>IP пользователя</th><th>Браузер пользователя</th><th>Дата посещения сайта <span ng-show="logsCont.arrowTrue">{{ logsCont.arrow }}</span></th></tr>
 			<tr ng-repeat="log in logsCont.logs track by $index">
 				<td>{{ log.ip }}</td>
 				<td>{{ log.bot }}</td>

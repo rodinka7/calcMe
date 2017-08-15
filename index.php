@@ -6,8 +6,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 	<link rel="stylesheet" type="text/css" href="assets/fonts/open-sans/stylesheet.css">
-	<script type="text/javascript" src="assets/js/angular.min.js"></script>
-	<script type="text/javascript" src="assets/js/angular-ui-router.js"></script>
+	<script type="text/javascript" src="assets/js/library/angular.min.js"></script>
+	<script type="text/javascript" src="assets/js/library/angular-ui-router.js"></script>
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.js"></script>
 	<script type="text/javascript" src="assets/js/calc.module.js"></script>
