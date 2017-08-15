@@ -1,5 +1,6 @@
 app.controller('quadrController', function(){
-	var quadr = this;
+	var quadr = this,
+		a, b, c;
 
 	quadr.result = false;
 	quadr.descriminant = false;
@@ -17,10 +18,11 @@ app.controller('quadrController', function(){
 		quadr.showGraph = false;
 		
 		if (validate()) {
-			var a = quadr.a || 1,
-				b = quadr.b || 1,
-				c = quadr.c || 0,
-				d,
+			quadr.a ? a = quadr.a : a = 1;
+			quadr.b ? b = quadr.b : b = 1;
+			quadr.c ? c = quadr.c : c = 0;
+
+			var d,
 				x1, x2;
 							
 			quadr.result = true;
@@ -86,13 +88,14 @@ app.controller('quadrController', function(){
 
 					if (x1 > x2) {
 						quadr.begin = x2 - 5;
-						quadr.end = x1 + 5;
-						quadr.straph = (x1 - x2)/100;				
+						quadr.end = x1 + 5;										
 					} else if (x1 < x2) {
 						quadr.begin = x1 - 5;
-						quadr.end = x2 + 5;
-						quadr.straph = (x2 - x1)/100;						
+						quadr.end = x2 + 5;												
 					}
+
+					quadr.straph = (quadr.end - quadr.begin)/100;
+					
 					isTrue(true, true, true, true);
 				}			
 			}
@@ -117,16 +120,15 @@ app.controller('quadrController', function(){
 
 	/* Вспомогательная функция для CountPoints() - составляет строку */
 	function lessZero(){
-		if (quadr.b < 0 && quadr.c < 0) {
-			var str = quadr.a + 'x\u00B2 ' + quadr.b +'x ' + quadr.c;
-		} else if (quadr.b < 0) {
-			var str = quadr.a + 'x\u00B2 ' + quadr.b +'x + ' + quadr.c;
-		} else if (quadr.c < 0){
-			var str = quadr.a + 'x\u00B2 + ' + quadr.b +'x ' + quadr.c;
+		if (b < 0 && c < 0) {
+			var str = a + 'x\u00B2 ' + b +'x ' + c;
+		} else if (b < 0) {
+			var str = a + 'x\u00B2 ' + b +'x + ' + c;
+		} else if (c < 0){
+			var str = a + 'x\u00B2 + ' + b +'x ' + c;
 		} else {
-			var str = quadr.a + 'x\u00B2 + ' + quadr.b +'x + ' + quadr.c;
+			var str = a + 'x\u00B2 + ' + b +'x + ' + c;
 		}
-
 		return str;
 	}
 	/* Вспомогательная функция для CountPoints() - составляет строку */
@@ -144,7 +146,7 @@ app.controller('quadrController', function(){
 			arr.push(['X', string]);
 
 			for (var x = quadr.begin; x <= quadr.end; x += quadr.straph){
-				y = quadr.a*x*x + quadr.b*x + Number(quadr.c);
+				y = a*x*x + b*x + Number(c);
 				
 				arr.push([x,y]);				
 			}			
@@ -155,7 +157,7 @@ app.controller('quadrController', function(){
 			for (let i = 1; i < quadr.arr.length; i++) {
 				let x = quadr.arr[i][0];
 
-				quadr.arr[i].push(quadr.a*x*x + quadr.b*x + Number(quadr.c));
+				quadr.arr[i].push(a*x*x + b*x + Number(c));
 			}
 		}		
 	}
@@ -164,22 +166,16 @@ app.controller('quadrController', function(){
 	/* Валидация */
 	function validate() {
 		var reg = /^\-?\d+\.?\d*$/;
-
-		if (!quadr.a || !quadr.b 
-			|| !quadr.c) {
+		
+		if ((quadr.a && !reg.test(quadr.a)) 
+			|| (quadr.b && !reg.test(quadr.b)) 
+			|| (quadr.c && !reg.test(quadr.c))) {
 
 			quadr.error1 = true;
 			return false;
-		} else { 
-			if (!reg.test(quadr.a) || !reg.test(quadr.b) 
-				|| !reg.test(quadr.c)){
-
-				quadr.error2 = true;
-				return false;
-			} else {
-				return true;
-			} 
-		}
+		} else {
+			return true;
+		} 
 	}
 	/* Валидация */	
 
@@ -222,10 +218,12 @@ app.controller('quadrController', function(){
 			str2 = 'Вы';
 
 		if (validate() 
+			&& a && b
 			&& (quadr.answer.indexOf(str1) < 0) 
-			&& (quadr.answer.indexOf(str2) < 0)){
+			&& (quadr.answer.indexOf(str2) < 0) ){
     		graph();
 		}  else {
+			quadr.error2 = true;
 			return;
 		}	
     }
@@ -290,7 +288,8 @@ app.controller('quadrController', function(){
 	          		opacity: 0.5 
 	          	}           	  
 	          },
-	          pointSize: 2	                       
+	          pointSize: 2,
+	          tooltip: {isHtml: true}	                       
 	        };
 
 	        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
@@ -323,7 +322,7 @@ app.controller('quadrController', function(){
     				var	str = target.textContent;    				
     			}
     			
-    			quadr.positionX = e.pageX - 100 + 'px';
+    			quadr.positionX = e.pageX - 50 + 'px';
     			quadr.positionY = e.pageY + 15 + 'px';
     			quadr.showDeleteCont = true;
 

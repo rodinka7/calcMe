@@ -3,6 +3,7 @@ app.controller('logsController', function($scope, List) {
 		sort = 'up';
 
 	logsCont.showInput = false;
+	logsCont.arrow = '&#8593;';
 
 	/* При загрузке страницы отображаются логи */
 	List.get().then(function(data){
@@ -10,18 +11,16 @@ app.controller('logsController', function($scope, List) {
 	});
 	/* При загрузке страницы отображаются логи */
 
-	/*  */
+	/* Получаем данные по возрастанию/убыванию */
 	logsCont.sort = function() {
 		switch(sort) {
 			case 'up':
-				sort = 'down';
-				logsCont.arrowTrue = true;
-				logsCont.arrow = 'U+2191';
+				sort = 'down';				
+				logsCont.arrow = '&#8595;';
 				break;
 			case 'down':
-				sort = 'up';
-				logsCont.arrowTrue = true;
-				logsCont.arrow = 'U+2193';
+				sort = 'up';				
+				logsCont.arrow = '&#8593;';
 				break;
 		}
 		
@@ -34,7 +33,9 @@ app.controller('logsController', function($scope, List) {
 		});	
 
 	}
-	/* Передеает данные на сервер при изменении в селекте */	
+	/* Получаем данные по возрастанию/убыванию */
+
+	/* Подставляет значение в инпут */	
 	logsCont.receiveVal = function(){
 		if (logsCont.select2) {
 			logsCont.showInput = true;
@@ -51,14 +52,12 @@ app.controller('logsController', function($scope, List) {
 			}
 		} 	
 	};
-	/* Передеает данные на сервер при изменении в селекте */
+	/* Подставляет значение в инпут */
 
 	/* Показывает кнопку - получить данные */
 	logsCont.showButton = function() {
 		if (logsCont.val){
 			logsCont.showBtn = true;
-		} else {
-			logsCont.input = 'Введите поисковый запрос!';
 		}
 	}
 	/* Показывает кнопку - получить данные */
@@ -77,16 +76,13 @@ app.controller('logsController', function($scope, List) {
 	/* Передает данные на сервер из инпута */
 
 	/* Передает данные на сервер при нажатии Enter */
-	function onEnter(){
-		document.body.addEventListener('keyup', function(e){
-			if (logsCont.select2 
-				&& logsCont.val
-				&& e.keyCode == 13) {
-				logsCont.receiveData();
-			}
-		})
+	logsCont.onEnter = function(e){				
+		if (logsCont.select2 
+			&& logsCont.val
+			&& e.key == 'Enter') {
+			logsCont.receiveData();
+		}
+		
 	}
-
-	onEnter();
 	/* Передает данные на сервер при нажатии Enter */
 });

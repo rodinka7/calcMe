@@ -2,8 +2,6 @@ body {
 	background: #F1E4FE;
 	margin: 0;
 	padding: 0;
-
-	overflow: hidden;
 }
 
 h2, h3, h4, h5 {
@@ -27,7 +25,7 @@ form {
 
 input {
 	width: 35px;
-	padding: 5px;
+	padding: 2px;
 
 	text-align: center;
 	font: 14px 'open_sanslight', arial;
@@ -108,11 +106,27 @@ input {
 	border-radius: 10px;
 	border: 1px solid #fff;
 }
+
+.result-answer {
+	background: #fff;
+	color: #81A34A;
+
+	padding: 3px;
+	border-radius: 10px;
+
+	margin-top: 10px;
+
+	min-height: 0;
+}
 @media screen and (max-width: 1210px) {
 	.result {
 		width: 100%;
 		margin: 10px 0 20px;  		
 	}
+}
+.result-num {
+	text-align: center;
+	font: 12px 'open_sanslight', arial;
 }
 .severalGraph {
 	width: 80%;
@@ -159,20 +173,21 @@ input {
 }
 .main-menu {
 	margin-top: 20px;
+	position: relative;
 }
 .menu {
 	box-sizing: border-box;
 	border: 1px solid #B1A5DE;
 	border-radius: 10px;
 
-	padding: 10px;
+	padding: 5px;
 }
 .menu-href {
 	display: block;
 
 	text-decoration: none;
 	color: #81A34A;
-	padding: 5px;
+	padding: 2px;
 	
 	font: 14px 'open_sanslight', arial;
 	transition: .3s ease-in-out;
@@ -188,17 +203,22 @@ input {
 	margin-right: 5px;
 }
 .choose-color {
-	width: 12%;
-	float: right;
+	position: absolute;
+	top: 50%;
+	right: 5px;
+
+	transform: translateY(-50%);
+	
+	width: 25%;
+
 	border: 1px solid #B1A5DE;
 	border-radius: 10px;
 
 	display: flex;
 	flex-flow: row wrap;
-	justify-content: space-around;
+	justify-content: space-between;
 
-	padding: 10px;
-	margin: 10px;
+	padding: 5px;
 }
 .color-span {
 	display: inline-block;
@@ -241,7 +261,7 @@ input {
 	color: #fff;
 	font: 12px 'open_sansbold', arial;
 
-	margin: 10px auto;
+	margin: 5px auto;
 	padding: 5px;
 
 	transition: .3s ease-in-out;

@@ -26,21 +26,29 @@
 		</div>
 		<div class="error">
 			<div class="error-mes" ng-show="quadr.error1">
-				Введите коэффициенты уравнения!
-			</div>
-			<div class="error-mes" ng-show="quadr.error2">
 				Коэффициенты должны содержать цифры, знак "минус" и знак "."!
+			</div>	
+			<div class="error-mes" ng-show="quadr.error2">
+				Введите коэффициенты уравнения!
 			</div>			
 	    </div>
         <div class="result" ng-show="quadr.result">
         	<h4>Результат:</h4>
+        	<div class="result-num">
+        		a = 
+        		<span> {{ quadr.a || 1 }},</span> 
+				b = 
+				<span> {{ quadr.b || 1 }}, </span>
+				c = 
+				<span> {{ quadr.c || 0 }} </span>
+        	</div>
 			<div class="result-name">{{ quadr.answer }}</div>
 			<div class="result-d" ng-show="quadr.descriminant">
 				Дискриминант D = 
 				<span>{{ quadr.d }}</span>
 			</div>
-			<div class="result-answer">
-				<div class="result-root" ng-show="quadr.showx1">
+			<div class="result-answer"  ng-show="quadr.showx1">
+				<div class="result-root">
 					x&#8321; = 
 					<span>{{ quadr.x1 }}</span>
 				</div>

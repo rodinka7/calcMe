@@ -13,6 +13,7 @@
 	<script type="text/javascript" src="assets/js/calc.module.js"></script>
 	<script type="text/javascript" src="assets/js/calc.config.js"></script>	
 	<script type="text/javascript" src="assets/js/calc.factory.js"></script>
+	<script type="text/javascript" src="assets/js/calc.filter.js"></script>
 	<script type="text/javascript" src="assets/js/quadr.controller.js"></script>
 	<script type="text/javascript" src="assets/js/logs.controller.js"></script>
 </head>

@@ -27,9 +27,9 @@ if (!empty($request)) {
 			receiveData($request[1], 'date', $pdo);
 						
 			break;
-
 	}
 }
+
 /* Вспомогательная функция - делает выборку из базы данных */
 function formResponse($str, $pdo){
 	$stmt = $pdo->query($str);
@@ -46,7 +46,7 @@ function receiveData($str, $column, $pdo) {
 	$search = '%'.$str.'%';
 	
 	$stmt  = $pdo->prepare("SELECT * FROM logs WHERE $column LIKE ?");
-	$stmt->execute(array($search));
+	$stmt->execute([$search]);
 	$data = $stmt->fetchAll();
 
 	print_r(json_encode($data));

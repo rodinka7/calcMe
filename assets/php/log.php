@@ -25,8 +25,8 @@ $ip = getRealIpAddr();
 
 $date = date("Y-m-d H:i:s");
 
-$query = $pdo->prepare("INSERT INTO logs (ip, bot, date) VALUES('".$ip."', '".$bot."', '".$date."')");
-$query->execute();
+$query = $pdo->prepare("INSERT INTO logs (ip, bot, date) VALUES(?, ?, ?);");
+$query->execute([$ip, $bot, $date]);
 
 $stmt = $pdo->query('SELECT * FROM logs');
 
